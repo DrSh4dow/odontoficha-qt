@@ -62,6 +62,7 @@ Item {
                     }
 
                     Label {
+                        color: "#111827"
                         text: "Juanita Perez"
                         font.bold: true
                         font.pixelSize: 20

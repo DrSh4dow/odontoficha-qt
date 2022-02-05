@@ -6,8 +6,10 @@ Window {
     id: root
     minimumWidth: 800
     minimumHeight: 640
+    width: 960
+    height: 760
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("Odontoficha")
 
     Rectangle {
         color: "#FBFCFD"
@@ -24,15 +26,14 @@ Window {
         anchors.fill: parent
         anchors.leftMargin: navigationBar.width
         currentIndex: navigationBar.currentIndex
-        Rectangle {
-            color: 'white'
-            implicitWidth: 200
-            implicitHeight: 200
+
+        DashboardLayout {
+            onIndexChanged: newIndex => navigationBar.currentIndex = newIndex
         }
-        Rectangle {
-            color: 'plum'
-            implicitWidth: 300
-            implicitHeight: 200
-        }
+        PacientesLayout {}
+        AgendaLayout {}
+        RecetasLayout {}
+        PresupuestoLayout {}
+        ConfiguracionLayout {}
     }
 }

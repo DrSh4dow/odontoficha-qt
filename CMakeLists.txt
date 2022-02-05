@@ -16,8 +16,15 @@ qt_add_executable(appodontoficha
 qt_add_qml_module(appodontoficha
     URI odontoficha
     VERSION 1.0
-    QML_FILES main.qml 
+    QML_FILES
+        main.qml
         NavBar.qml
+        DashboardLayout.qml
+        PacientesLayout.qml
+        AgendaLayout.qml
+        RecetasLayout.qml
+        PresupuestoLayout.qml
+        ConfiguracionLayout.qml
 )
 
 set_target_properties(appodontoficha PROPERTIES
