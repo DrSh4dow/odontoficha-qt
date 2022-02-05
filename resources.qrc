@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>account-multiple.svg</file>
+        <file>calendar-blank.svg</file>
+        <file>clipboard-text.svg</file>
+        <file>cog.svg</file>
+        <file>exit-to-app.svg</file>
+        <file>file-document-multiple.svg</file>
+        <file>view-dashboard.svg</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>exampleavatar.jpeg</file>
+    </qresource>
+    <qresource prefix="/fonts"/>
+</RCC>
