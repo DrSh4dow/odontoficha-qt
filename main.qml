@@ -4,12 +4,14 @@ import QtQuick.Layouts
 
 Window {
     id: root
-    minimumWidth: 800
-    minimumHeight: 640
-    width: 960
-    height: 760
+    minimumWidth: 960
+    minimumHeight: 720
+    width: 1064
+    height: 768
     visible: true
     title: qsTr("Odontoficha")
+
+    property string selectedPatient: ""
 
     Rectangle {
         color: "#FBFCFD"
@@ -30,10 +32,18 @@ Window {
         DashboardLayout {
             onIndexChanged: newIndex => navigationBar.currentIndex = newIndex
         }
-        PacientesLayout {}
+        PacientesLayout {
+            onPacienteSelected: function handler(pagina, id) {
+                root.selectedPatient = id
+                navigationBar.currentIndex = pagina
+            }
+        }
         AgendaLayout {}
         RecetasLayout {}
         PresupuestoLayout {}
         ConfiguracionLayout {}
+        FichaClinica {
+            pacienteId: selectedPatient
+        }
     }
 }

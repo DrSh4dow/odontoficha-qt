@@ -25,6 +25,9 @@ qt_add_qml_module(appodontoficha
         RecetasLayout.qml
         PresupuestoLayout.qml
         ConfiguracionLayout.qml
+        PacienteRow.qml
+        PacientesHeader.qml
+        FichaClinica.qml
 )
 
 set_target_properties(appodontoficha PROPERTIES
