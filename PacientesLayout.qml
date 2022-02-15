@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls.Material
 import Qt5Compat.GraphicalEffects
+import cl.odontoficha 1.0
 
 Item {
     id: root
@@ -68,8 +69,14 @@ Item {
                     ListView {
                         anchors.fill: parent
                         clip: true
-                        model: 100
+                        model: PatientModel {}
                         delegate: PacienteRow {
+                            nombres: model.name
+                            apellidos: model.last_name
+                            rut: model.rut
+                            modificacion: model.fecha_modificacion
+                            ingreso: model.fecha_creacion
+                            pacienteId: model.patient_id
                             onPacienteSelected: function handler(pag, ident) {
                                 root.pacienteSelected(pag, ident)
                             }

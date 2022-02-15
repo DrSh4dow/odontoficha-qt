@@ -6,10 +6,14 @@ Item {
 
     property string nombres: "Juan Alejandro"
     property string apellidos: "Perez Pereira"
-    property string rut: "12.345.678-9"
+    property string rut: "123456789"
     property string modificacion: "12-09-22"
     property string ingreso: "25-07-22"
     property string pacienteId: "132ef5421"
+    property string formatedDateIngreso: ingreso.split("T")[0]
+    property string formatedDateModificacion: modificacion.split("T")[0]
+    property string formatedRut: [rut.slice(0, -7), '.', rut.slice(
+            -7, -4), '.', rut.slice(-4, -1), '-', rut.slice(-1)].join('')
 
     anchors.left: parent.left
     anchors.right: parent.right
@@ -52,7 +56,7 @@ Item {
             width: 184
             Label {
                 color: "#1f2937"
-                text: rut
+                text: formatedRut
                 font.pixelSize: 12
                 anchors.centerIn: parent
                 wrapMode: Label.WordWrap
@@ -69,7 +73,7 @@ Item {
             width: 120
             Label {
                 color: "#1f2937"
-                text: modificacion
+                text: formatedDateModificacion
                 font.pixelSize: 12
                 anchors.centerIn: parent
                 wrapMode: Label.WordWrap
@@ -86,7 +90,7 @@ Item {
             width: 120
             Label {
                 color: "#1f2937"
-                text: ingreso
+                text: formatedDateIngreso
                 font.pixelSize: 12
                 anchors.centerIn: parent
                 wrapMode: Label.WordWrap

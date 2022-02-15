@@ -63,7 +63,7 @@ Item {
 
                     Label {
                         color: "#111827"
-                        text: "Juanita Perez"
+                        text: "Belen Chacón"
                         font.bold: true
                         font.pixelSize: 20
                     }
