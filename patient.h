@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QObject>
+#include <QSqlError>
 #include <QSqlQuery>
 #include <QtQml>
 
@@ -75,6 +76,16 @@ public:
 
   const QString &fecha_modificacion() const;
   void setFecha_modificacion(const QString &newFecha_modificacion);
+
+  Q_INVOKABLE bool createNewPatient(QString nRut, QString nPassport,
+                                    QString nName, QString nLastName,
+                                    QString nBirthday, QString nPhone,
+                                    QString nEmail, QString nAntecedentes);
+
+  Q_INVOKABLE bool updateExistingPatient(QString nRut, QString nPassport,
+                                         QString nName, QString nLastName,
+                                         QString nBirthday, QString nPhone,
+                                         QString nEmail, QString nAntecedentes);
 
 private:
   int m_patient_id = 0;

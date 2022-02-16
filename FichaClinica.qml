@@ -7,6 +7,9 @@ Item {
     clip: true
     property int pacienteId: 0
 
+    property int globalX: 0
+    property int globalY: 0
+
     Patient {
         id: patient
         patient_id: pacienteId
@@ -32,6 +35,7 @@ Item {
             radius: 12
             width: 680
             height: 320
+            Material.elevation: 6
 
             Column {
                 anchors.fill: parent
@@ -81,8 +85,11 @@ Item {
                             wrapMode: Label.WordWrap
                         }
                         Label {
-                            text: "Fecha de Nacimiento: " + patient.birth_day + " (" + getAge(
-                                      patient.birth_day) + " años)"
+                            text: "Fecha de Nacimiento: " + patient.birth_day.split(
+                                      "-")[2] + "/" + patient.birth_day.split(
+                                "-")[1] + "/" + patient.birth_day.split(
+                                "-")[0] + " ( <b>" + getAge(
+                                patient.birth_day) + " años </b>)"
                             font.pixelSize: 16
                             wrapMode: Label.WordWrap
 
@@ -116,6 +123,223 @@ Item {
                     Material.background: "#D8B4FE"
                     Material.foreground: "#FFFFFF"
                     font.bold: true
+                    onClicked: popup.open()
+                }
+            }
+
+            TabBar {
+                width: parent.width - 32
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 2
+                Material.background: "#FFFFFF"
+                TabButton {
+                    text: "Ficha Clinica"
+                    width: implicitWidth
+                    icon.source: "qrc:/icons/clipboard-text.svg"
+                    display: TabButton.TextUnderIcon
+                }
+                TabButton {
+                    text: "Antecedentes"
+                    width: implicitWidth
+                    icon.source: "qrc:/icons/clipboard-account.svg"
+                    display: TabButton.TextUnderIcon
+                }
+                TabButton {
+                    text: "Documentos"
+                    width: implicitWidth
+                    icon.source: "qrc:/icons/file-multiple.svg"
+                    display: TabButton.TextUnderIcon
+                }
+            }
+        }
+        Label {
+            text: "Test"
+        }
+    }
+    Dialog {
+        id: popup
+        width: 640
+        height: 640
+        title: "Editar Datos"
+        standardButtons: Dialog.Save | Dialog.Cancel
+        closePolicy: Popup.NoAutoClose
+        modal: true
+        focus: true
+        x: ((globalX - 240) / 2) - (width / 1.5)
+        y: (globalY / 2) - (height / 2)
+        function titleCase(str) {
+            var splitStr = str.toLowerCase().split(' ')
+            for (var i = 0; i < splitStr.length; i++) {
+                // You do not need to check if i is larger than splitStr length, as your for does that for you
+                // Assign it back to the array
+                splitStr[i] = splitStr[i].charAt(0).toUpperCase(
+                            ) + splitStr[i].substring(1)
+            }
+            // Directly return the joined string
+            return splitStr.join(' ')
+        }
+
+        onAccepted: function submitData() {
+            console.log("Data sanitization and submission begin...")
+            let sanitizedRut = rut.text.trim()
+            let sanitizedPasaporte = pasaporte.text.trim()
+            let sanitizedNombre = titleCase(nombre.text.trim())
+            let sanitizedApellido = titleCase(apellido.text.trim())
+            let sanitizedBirthday = birthday.text.split(
+                    "/")[2] + "-" + birthday.text.split(
+                    "/")[1] + "-" + birthday.text.split("/")[0]
+            let sanitizedFono = fono.text.trim()
+            let sanitizedEmail = email.text.trim()
+            let sanitizedAntecedentes = antecedentes.text
+
+            let isUpdated = patient.updateExistingPatient(sanitizedRut,
+                                                          sanitizedPasaporte,
+                                                          sanitizedNombre,
+                                                          sanitizedApellido,
+                                                          sanitizedBirthday,
+                                                          sanitizedFono,
+                                                          sanitizedEmail,
+                                                          sanitizedAntecedentes)
+
+            if (isUpdated) {
+                console.log("Paciente modificado con exito!")
+            } else {
+                console.log("[ ERROR ] fracaso la modificacion de paciente...")
+            }
+        }
+        onRejected: console.log("Cancel clicked")
+        onOpened: {
+            rut.text = patient.rut
+            pasaporte.text = patient.passport
+            nombre.text = patient.name
+            apellido.text = patient.last_name
+            birthday.text = patient.birth_day.split(
+                        "-")[2] + "/" + patient.birth_day.split(
+                        "-")[1] + "/" + patient.birth_day.split("-")[0]
+            fono.text = patient.phone
+            email.text = patient.email
+            antecedentes.text = patient.antecedentes
+        }
+
+        Column {
+            spacing: 16
+            anchors.fill: parent
+
+            Grid {
+                columns: 2
+                topPadding: 32
+                spacing: 16
+                anchors.left: parent.left
+                anchors.right: parent.right
+                TextField {
+                    id: rut
+                    placeholderText: "Ej: 123456789"
+                    width: 280
+                    onEditingFinished: focus = false
+                    validator: IntValidator {
+                        bottom: 0
+                    }
+                    Label {
+                        text: "RUT (sin puntos ni guion)"
+                        anchors.topMargin: -12
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        font.pixelSize: 12
+                    }
+                }
+                TextField {
+                    id: pasaporte
+                    width: 280
+                    onEditingFinished: focus = false
+                    Label {
+                        text: "Pasaporte (RUT Ausente)"
+                        anchors.topMargin: -12
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        font.pixelSize: 12
+                    }
+                }
+                TextField {
+                    id: nombre
+                    width: 280
+                    onEditingFinished: focus = false
+                    Label {
+                        text: "Nombres*"
+                        anchors.topMargin: -12
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        font.pixelSize: 12
+                    }
+                }
+                TextField {
+                    id: apellido
+                    width: 280
+                    onEditingFinished: focus = false
+                    Label {
+                        text: "Apellidos*"
+                        anchors.topMargin: -12
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        font.pixelSize: 12
+                    }
+                }
+                TextField {
+                    id: birthday
+                    width: 280
+                    text: "28/11/996"
+                    onEditingFinished: focus = false
+                    inputMask: "00/00/0000"
+                    Label {
+                        text: "Fecha de Nacimiento (Dia/Mes/Año)"
+                        anchors.topMargin: -12
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        font.pixelSize: 12
+                    }
+                }
+                TextField {
+                    id: fono
+                    width: 280
+                    onEditingFinished: focus = false
+                    placeholderText: "Ej: +56912345678"
+                    Label {
+                        text: "Fono"
+                        anchors.topMargin: -12
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        font.pixelSize: 12
+                    }
+                }
+                TextField {
+                    id: email
+                    width: 280
+                    placeholderText: "Ej: ejemplo@correo.cl"
+                    onEditingFinished: focus = false
+                    Label {
+                        text: "Email"
+                        anchors.topMargin: -12
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        font.pixelSize: 12
+                    }
+                }
+            }
+            TextArea {
+                id: antecedentes
+                placeholderText: qsTr("Ej: Hipertension Arterial, Diabetes Mellitus tipo 2, Osteoporosis... ")
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.topMargin: 16
+                wrapMode: TextArea.WordWrap
+                selectByMouse: true
+
+                Label {
+                    text: "Antecedentes Morbidos"
+                    anchors.topMargin: -12
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    font.pixelSize: 12
                 }
             }
         }

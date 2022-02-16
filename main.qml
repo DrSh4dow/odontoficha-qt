@@ -46,6 +46,8 @@ Window {
         ConfiguracionLayout {}
         FichaClinica {
             pacienteId: selectedPatient
+            globalX: root.width
+            globalY: root.height
         }
     }
 }

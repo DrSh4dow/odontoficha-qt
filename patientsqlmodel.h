@@ -14,11 +14,11 @@ public:
   explicit PatientSqlModel(QObject *parent = nullptr);
   ~PatientSqlModel();
 
-  void setQuery(const QString &query);
-
   QVariant data(const QModelIndex &index, int role) const;
 
   QHash<int, QByteArray> roleNames() const;
+
+  Q_INVOKABLE void refresh();
 
 private:
   void generateRoleNames();

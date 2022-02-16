@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls.Material
 import Qt5Compat.GraphicalEffects
+import cl.odontoficha.patient 1.0
 import cl.odontoficha.sql 1.0
 
 Item {
@@ -11,6 +12,10 @@ Item {
     property int globalY: 0
 
     signal pacienteSelected(int pagina, string id)
+
+    Patient {
+        id: patientUtil
+    }
     Column {
         anchors.fill: parent
         topPadding: 64
@@ -75,7 +80,9 @@ Item {
                     ListView {
                         anchors.fill: parent
                         clip: true
-                        model: PatientModel {}
+                        model: PatientModel {
+                            id: patientModel
+                        }
                         delegate: PacienteRow {
                             nombres: model.name
                             apellidos: model.last_name
@@ -112,10 +119,48 @@ Item {
         focus: true
         x: ((globalX - 240) / 2) - (width / 1.5)
         y: (globalY / 2) - (height / 2)
+        function titleCase(str) {
+            var splitStr = str.toLowerCase().split(' ')
+            for (var i = 0; i < splitStr.length; i++) {
+                // You do not need to check if i is larger than splitStr length, as your for does that for you
+                // Assign it back to the array
+                splitStr[i] = splitStr[i].charAt(0).toUpperCase(
+                            ) + splitStr[i].substring(1)
+            }
+            // Directly return the joined string
+            return splitStr.join(' ')
+        }
+
         onAccepted: function submitData() {
             console.log("Data sanitization and submission begin...")
+            let sanitizedRut = rut.text.trim()
+            let sanitizedPasaporte = pasaporte.text.trim()
+            let sanitizedNombre = titleCase(nombre.text.trim())
+            let sanitizedApellido = titleCase(apellido.text.trim())
+            let sanitizedBirthday = birthday.text.split(
+                    "/")[2] + "-" + birthday.text.split(
+                    "/")[1] + "-" + birthday.text.split("/")[0]
+            let sanitizedFono = fono.text.trim()
+            let sanitizedEmail = email.text.trim()
+            let sanitizedAntecedentes = antecedentes.text
 
-            console.log("TO DO lol")
+            console.log("Interfacing with c++...")
+
+            let isCreated = patientUtil.createNewPatient(sanitizedRut,
+                                                         sanitizedPasaporte,
+                                                         sanitizedNombre,
+                                                         sanitizedApellido,
+                                                         sanitizedBirthday,
+                                                         sanitizedFono,
+                                                         sanitizedEmail,
+                                                         sanitizedAntecedentes)
+
+            if (isCreated) {
+                console.log("Paciente creado con exito!")
+                patientModel.refresh()
+            } else {
+                console.log("[ ERROR ] fracaso la creacion de paciente...")
+            }
         }
         onRejected: console.log("Cancel clicked")
         onOpened: {
@@ -126,6 +171,7 @@ Item {
             birthday.text = "1990-11-25"
             fono.text = ""
             email.text = ""
+            antecedentes.text = ""
         }
 
         Column {
@@ -193,11 +239,11 @@ Item {
                 TextField {
                     id: birthday
                     width: 280
-                    text: "1990-11-25"
+                    text: "28/11/996"
                     onEditingFinished: focus = false
-                    inputMask: "0000-00-00"
+                    inputMask: "00/00/0000"
                     Label {
-                        text: "Fecha de Nacimiento (Año-Mes-Dia)"
+                        text: "Fecha de Nacimiento (Dia/Mes/Año)"
                         anchors.topMargin: -12
                         anchors.top: parent.top
                         anchors.left: parent.left
@@ -232,6 +278,7 @@ Item {
                 }
             }
             TextArea {
+                id: antecedentes
                 placeholderText: qsTr("Ej: Hipertension Arterial, Diabetes Mellitus tipo 2, Osteoporosis... ")
                 anchors.left: parent.left
                 anchors.right: parent.right

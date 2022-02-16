@@ -18,7 +18,7 @@ Item {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.left: parent.left
-            width: 184
+            width: 200
             Label {
                 color: "#6E6893"
                 text: "NOMBRE COMPLETO"

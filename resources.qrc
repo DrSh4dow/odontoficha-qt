@@ -7,6 +7,8 @@
         <file>exit-to-app.svg</file>
         <file>file-document-multiple.svg</file>
         <file>view-dashboard.svg</file>
+        <file>clipboard-account.svg</file>
+        <file>file-multiple.svg</file>
     </qresource>
     <qresource prefix="/images">
         <file>exampleavatar.jpeg</file>
