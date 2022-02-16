@@ -168,7 +168,7 @@ Item {
             pasaporte.text = ""
             nombre.text = ""
             apellido.text = ""
-            birthday.text = "1990-11-25"
+            birthday.text = "28/11/1996"
             fono.text = ""
             email.text = ""
             antecedentes.text = ""
@@ -239,7 +239,7 @@ Item {
                 TextField {
                     id: birthday
                     width: 280
-                    text: "28/11/996"
+                    text: "28/11/1996"
                     onEditingFinished: focus = false
                     inputMask: "00/00/0000"
                     Label {

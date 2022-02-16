@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 import cl.odontoficha.patient 1.0
 
 Item {
@@ -17,7 +18,7 @@ Item {
 
     Column {
         anchors.fill: parent
-        topPadding: 64
+        topPadding: 16
         spacing: 8
         Label {
             anchors.left: parent.left
@@ -33,9 +34,10 @@ Item {
             border.color: "#E5E5E5"
             border.width: 1
             radius: 12
-            width: 680
+            width: parent.width < 960 ? parent.width - 160 : 800
             height: 320
             Material.elevation: 6
+            clip: true
 
             Column {
                 anchors.fill: parent
@@ -51,7 +53,7 @@ Item {
                     Column {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        width: 240
+                        width: 210
                         spacing: 16
                         Label {
                             text: "Nombres: " + patient.name
@@ -76,7 +78,7 @@ Item {
                     Column {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        width: 240
+                        width: 210
                         spacing: 16
 
                         Label {
@@ -128,15 +130,23 @@ Item {
             }
 
             TabBar {
+                id: bar
                 width: parent.width - 32
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 2
                 Material.background: "#FFFFFF"
+                Material.foreground: "#666666"
                 TabButton {
-                    text: "Ficha Clinica"
+                    text: "Nueva Ficha"
                     width: implicitWidth
                     icon.source: "qrc:/icons/clipboard-text.svg"
+                    display: TabButton.TextUnderIcon
+                }
+                TabButton {
+                    text: "Historia Clinica"
+                    width: implicitWidth
+                    icon.source: "qrc:/icons/file-document-multiple.svg"
                     display: TabButton.TextUnderIcon
                 }
                 TabButton {
@@ -153,8 +163,23 @@ Item {
                 }
             }
         }
-        Label {
-            text: "Test"
+        Item {
+            width: parent.width < 960 ? parent.width : 960
+            height: parent.height - card.height - 80
+            StackLayout {
+                anchors.fill: parent
+                currentIndex: bar.currentIndex
+
+                NuevaFichaLayout {
+
+                    cardWidth: card.width
+                }
+                FichaLayout {
+                    cardWidth: card.width
+                }
+                AntecedentesLayout {}
+                DocumentosLayout {}
+            }
         }
     }
     Dialog {

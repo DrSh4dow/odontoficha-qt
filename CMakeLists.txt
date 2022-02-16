@@ -33,6 +33,10 @@ qt_add_qml_module(appodontoficha
         PacienteRow.qml
         PacientesHeader.qml
         FichaClinica.qml
+        FichaLayout.qml
+        AntecedentesLayout.qml
+        DocumentosLayout.qml
+        NuevaFichaLayout.qml
 )
 
 set_target_properties(appodontoficha PROPERTIES

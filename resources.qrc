@@ -9,6 +9,7 @@
         <file>view-dashboard.svg</file>
         <file>clipboard-account.svg</file>
         <file>file-multiple.svg</file>
+        <file>plus.svg</file>
     </qresource>
     <qresource prefix="/images">
         <file>exampleavatar.jpeg</file>

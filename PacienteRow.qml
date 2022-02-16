@@ -24,8 +24,9 @@ Item {
     property string formatedRut: [rut.slice(0, -7), '.', rut.slice(
             -7, -4), '.', rut.slice(-4, -1), '-', rut.slice(-1)].join('')
 
-    anchors.left: parent.left
-    anchors.right: parent.right
+    width: ListView.view.width
+    //        anchors.left: parent.left
+    //        anchors.right: parent.right
     height: 56
 
     signal pacienteSelected(int pagina, string id)
