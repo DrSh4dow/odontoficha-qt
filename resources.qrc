@@ -12,4 +12,7 @@
         <file>exampleavatar.jpeg</file>
     </qresource>
     <qresource prefix="/fonts"/>
+    <qresource prefix="/">
+        <file>qtquickcontrols2.conf</file>
+    </qresource>
 </RCC>

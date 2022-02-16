@@ -33,6 +33,7 @@ qt_add_qml_module(appodontoficha
         PacienteRow.qml
         PacientesHeader.qml
         FichaClinica.qml
+        DatePicker.qml
 )
 
 set_target_properties(appodontoficha PROPERTIES

@@ -34,6 +34,6 @@ void PatientSqlModel::generateRoleNames() {
   m_roleNames.clear();
   for (int i = 0; i < record().count(); i++) {
     m_roleNames.insert(Qt::UserRole + i + 1, record().fieldName(i).toUtf8());
-    qInfo() << record().fieldName(i).toUtf8();
+    //    qInfo() << record().fieldName(i).toUtf8();
   }
 }

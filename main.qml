@@ -11,7 +11,7 @@ Window {
     visible: true
     title: qsTr("Odontoficha")
 
-    property string selectedPatient: ""
+    property int selectedPatient: 0
 
     Rectangle {
         color: "#FBFCFD"
@@ -33,6 +33,8 @@ Window {
             onIndexChanged: newIndex => navigationBar.currentIndex = newIndex
         }
         PacientesLayout {
+            globalX: root.width
+            globalY: root.height
             onPacienteSelected: function handler(pagina, id) {
                 root.selectedPatient = id
                 navigationBar.currentIndex = pagina

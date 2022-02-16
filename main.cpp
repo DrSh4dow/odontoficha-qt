@@ -1,4 +1,5 @@
 #include "connection.h"
+#include "patient.h"
 #include "patientsqlmodel.h"
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -15,7 +16,8 @@ int main(int argc, char *argv[]) {
 
   bool isConnected = createConnection();
   qInfo() << "Connected to DB: " << isConnected;
-  qmlRegisterType<PatientSqlModel>("cl.odontoficha", 1, 0, "PatientModel");
+  qmlRegisterType<PatientSqlModel>("cl.odontoficha.sql", 1, 0, "PatientModel");
+  qmlRegisterType<Patient>("cl.odontoficha.patient", 1, 0, "Patient");
 
   // Finish custom logic
 

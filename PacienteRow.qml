@@ -9,7 +9,7 @@ Item {
     property string rut: "123456789"
     property string modificacion: "12-09-22"
     property string ingreso: "25-07-22"
-    property string pacienteId: "132ef5421"
+    property int pacienteId: 0
     property string formatedDateIngreso: ingreso.split("T")[0]
     property string formatedDateModificacion: modificacion.split("T")[0]
     property string formatedRut: [rut.slice(0, -7), '.', rut.slice(
