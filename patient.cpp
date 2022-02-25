@@ -143,7 +143,7 @@ bool Patient::createNewPatient(QString nRut, QString nPassport, QString nName,
     return false;
   }
 
-  qInfo() << "El paciente se creo con exito!";
+  qInfo() << " [ C++ ] El paciente se creo con exito!";
 
   return true;
 }

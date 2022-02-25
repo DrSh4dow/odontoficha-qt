@@ -11,6 +11,10 @@ Item {
     property int globalX: 0
     property int globalY: 0
 
+    function getFichas(id) {
+        fichaLayout.getFichas(id)
+    }
+
     Patient {
         id: patient
         patient_id: pacienteId
@@ -171,11 +175,23 @@ Item {
                 currentIndex: bar.currentIndex
 
                 NuevaFichaLayout {
-
+                    id: nuevaFichaLayout
+                    onSavePressed: function handler(content) {
+                        fichaLayout.addFicha(content, pacienteId, 1)
+                    }
                     cardWidth: card.width
                 }
                 FichaLayout {
+                    id: fichaLayout
+                    pacienteId: pacienteId
                     cardWidth: card.width
+                    onIsFinish: function (isIt) {
+                        if (isIt) {
+                            bar.currentIndex = 1
+                        }
+
+                        nuevaFichaLayout.saveFinished(isIt)
+                    }
                 }
                 AntecedentesLayout {}
                 DocumentosLayout {}

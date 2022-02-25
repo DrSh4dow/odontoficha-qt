@@ -38,6 +38,10 @@ Window {
             onPacienteSelected: function handler(pagina, id) {
                 root.selectedPatient = id
                 navigationBar.currentIndex = pagina
+                if (pagina === 6 && id > 0) {
+                    //                    console.log("paciente id: " + id)
+                    fichaClinica.getFichas(id)
+                }
             }
         }
         AgendaLayout {}
@@ -45,6 +49,7 @@ Window {
         PresupuestoLayout {}
         ConfiguracionLayout {}
         FichaClinica {
+            id: fichaClinica
             pacienteId: selectedPatient
             globalX: root.width
             globalY: root.height

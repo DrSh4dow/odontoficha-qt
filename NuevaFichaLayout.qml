@@ -7,6 +7,17 @@ Item {
     property int cardWidth: 400
     property bool isSaving: false
 
+    signal savePressed(string content)
+
+    function saveFinished(isIt) {
+        button.enabled = true
+        indicator.running = false
+
+        if (isIt) {
+            textArea.text = ""
+        }
+    }
+
     ScrollView {
 
         height: root.height
@@ -30,12 +41,15 @@ Item {
                     radius: 12
 
                     TextArea {
+                        id: textArea
                         placeholderText: "Nueva Ficha Clinica"
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.top: parent.top
                         anchors.topMargin: 16
                         padding: 8
-                        wrapMode: TextArea.WordWrap
+                        width: cardWidth - 32
+                        wrapMode: TextArea.Wrap
+                        clip: true
                         selectByMouse: true
 
                         background: Rectangle {
@@ -49,6 +63,7 @@ Item {
                     }
 
                     Button {
+                        id: button
                         text: "Guardar Ficha"
                         topPadding: 16
                         bottomPadding: 16
@@ -60,11 +75,16 @@ Item {
                         Material.background: "#D8B4FE"
                         Material.foreground: "#FFFFFF"
                         font.bold: true
-                        enabled: !isSaving
 
-                        onClicked: isSaving = true
+                        onClicked: {
+                            button.enabled = false
+                            indicator.running = true
+
+                            root.savePressed(textArea.text)
+                        }
                         BusyIndicator {
-                            running: isSaving
+                            id: indicator
+                            running: false
                             height: 32
                             width: 32
                             anchors.centerIn: parent

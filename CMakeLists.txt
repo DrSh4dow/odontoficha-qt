@@ -16,6 +16,7 @@ qt_add_executable(appodontoficha
     connection.h
     patientsqlmodel.h patientsqlmodel.cpp
     patient.h patient.cpp
+    fichasqlmodel.h fichasqlmodel.cpp
 )
 
 qt_add_qml_module(appodontoficha

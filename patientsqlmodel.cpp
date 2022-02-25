@@ -1,7 +1,7 @@
 #include "patientsqlmodel.h"
 
 PatientSqlModel::PatientSqlModel(QObject *parent) : QSqlQueryModel(parent) {
-  QSqlQueryModel::setQuery("SELECT * FROM patient");
+  this->setQuery("SELECT * FROM patient");
   generateRoleNames();
 }
 
