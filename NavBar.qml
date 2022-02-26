@@ -32,6 +32,26 @@ Item {
                 anchors.leftMargin: 16
                 height: 144
 
+                Row {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    height: 40
+                    y: 8
+                    spacing: 8
+                    Rectangle {
+                        width: 12
+                        height: 12
+                        radius: width
+                        color: utilityObject.isDatabaseOpen ? "#22c55e" : "#ef4444"
+                    }
+
+                    Label {
+                        color: "#111827"
+                        text: utilityObject.isDatabaseOpen ? "Conectado" : "Desconectado"
+                        font.pixelSize: 10
+                    }
+                }
+
                 Column {
                     anchors.fill: parent
                     topPadding: 40

@@ -5,10 +5,9 @@ project(odontoficha VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.2 COMPONENTS Quick Core Sql Qml REQUIRED)
+find_package(Qt6 6.2 COMPONENTS Quick Core Sql Qml Gui REQUIRED)
 
 qt_add_executable(appodontoficha
     resources.qrc
@@ -17,6 +16,7 @@ qt_add_executable(appodontoficha
     patientsqlmodel.h patientsqlmodel.cpp
     patient.h patient.cpp
     fichasqlmodel.h fichasqlmodel.cpp
+    utility.h utility.cpp
 )
 
 qt_add_qml_module(appodontoficha
@@ -51,4 +51,4 @@ set_target_properties(appodontoficha PROPERTIES
 target_compile_definitions(appodontoficha
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(appodontoficha
-    PRIVATE Qt6::Quick Qt6::Qml Qt6::Core Qt6::Sql)
+    PRIVATE Qt6::Quick Qt6::Qml Qt6::Core Qt6::Sql Qt6::Gui)

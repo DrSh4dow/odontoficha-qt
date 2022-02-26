@@ -51,6 +51,7 @@ Item {
                         wrapMode: TextArea.Wrap
                         clip: true
                         selectByMouse: true
+                        height: 520
 
                         background: Rectangle {
                             implicitWidth: cardWidth - 32
@@ -64,7 +65,7 @@ Item {
 
                     Button {
                         id: button
-                        text: "Guardar Ficha"
+                        text: "Guardar Hoja"
                         topPadding: 16
                         bottomPadding: 16
                         anchors.right: parent.right

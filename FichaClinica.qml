@@ -142,7 +142,7 @@ Item {
                 Material.background: "#FFFFFF"
                 Material.foreground: "#666666"
                 TabButton {
-                    text: "Nueva Ficha"
+                    text: "Nueva Hoja"
                     width: implicitWidth
                     icon.source: "qrc:/icons/clipboard-text.svg"
                     display: TabButton.TextUnderIcon
@@ -193,7 +193,11 @@ Item {
                         nuevaFichaLayout.saveFinished(isIt)
                     }
                 }
-                AntecedentesLayout {}
+                AntecedentesLayout {
+
+                    antecedentesText: patient.antecedentes
+                    cardWidth: card.width
+                }
                 DocumentosLayout {}
             }
         }
@@ -278,6 +282,7 @@ Item {
                     placeholderText: "Ej: 123456789"
                     width: 280
                     onEditingFinished: focus = false
+                    selectByMouse: true
                     validator: IntValidator {
                         bottom: 0
                     }
@@ -293,6 +298,7 @@ Item {
                     id: pasaporte
                     width: 280
                     onEditingFinished: focus = false
+                    selectByMouse: true
                     Label {
                         text: "Pasaporte (RUT Ausente)"
                         anchors.topMargin: -12
@@ -305,6 +311,7 @@ Item {
                     id: nombre
                     width: 280
                     onEditingFinished: focus = false
+                    selectByMouse: true
                     Label {
                         text: "Nombres*"
                         anchors.topMargin: -12
@@ -317,6 +324,7 @@ Item {
                     id: apellido
                     width: 280
                     onEditingFinished: focus = false
+                    selectByMouse: true
                     Label {
                         text: "Apellidos*"
                         anchors.topMargin: -12
@@ -344,6 +352,7 @@ Item {
                     width: 280
                     onEditingFinished: focus = false
                     placeholderText: "Ej: +56912345678"
+                    selectByMouse: true
                     Label {
                         text: "Fono"
                         anchors.topMargin: -12
@@ -357,6 +366,7 @@ Item {
                     width: 280
                     placeholderText: "Ej: ejemplo@correo.cl"
                     onEditingFinished: focus = false
+                    selectByMouse: true
                     Label {
                         text: "Email"
                         anchors.topMargin: -12
@@ -372,7 +382,7 @@ Item {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.topMargin: 16
-                wrapMode: TextArea.WordWrap
+                wrapMode: TextArea.Wrap
                 selectByMouse: true
 
                 Label {

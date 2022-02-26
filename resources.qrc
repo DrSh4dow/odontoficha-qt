@@ -10,6 +10,7 @@
         <file>clipboard-account.svg</file>
         <file>file-multiple.svg</file>
         <file>plus.svg</file>
+        <file>tooth.ico</file>
     </qresource>
     <qresource prefix="/images">
         <file>exampleavatar.jpeg</file>
