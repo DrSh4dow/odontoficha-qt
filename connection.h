@@ -7,10 +7,9 @@
 static bool createConnection() {
   QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
   db.setUserName("odontouser");
-  db.setHostName("odontoficha-db-do-user-10883658-0.b.db.ondigitalocean.com");
-  db.setPort(25060);
+  db.setHostName("34.95.174.41");
   db.setDatabaseName("odontofichadb");
-  db.setPassword("yqTpb5wQXiR4cyBk");
+  db.setPassword("3262daMC");
 
   if (!db.open()) {
     qWarning("Unable to open database");
