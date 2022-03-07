@@ -48,7 +48,7 @@ Item {
                         Image {
                             id: pacientesImg
                             anchors.fill: parent
-                            source: "qrc:/icons/account-multiple.svg"
+                            source: "qrc:/icons/resources/account-multiple.svg"
                             fillMode: Image.PreserveAspectFit
                             sourceSize: Qt.size(
                                             accountsImg.sourceSize.width * 4,
@@ -117,7 +117,7 @@ Item {
                         Image {
                             id: agendaImg
                             anchors.fill: parent
-                            source: "qrc:/icons/calendar-blank.svg"
+                            source: "qrc:/icons/resources/calendar-blank.svg"
                             fillMode: Image.PreserveAspectFit
                             sourceSize: Qt.size(
                                             calendarImg.sourceSize.width * 4,
@@ -187,7 +187,7 @@ Item {
                         Image {
                             id: recetasImg
                             anchors.fill: parent
-                            source: "qrc:/icons/clipboard-text.svg"
+                            source: "qrc:/icons/resources/clipboard-text.svg"
                             fillMode: Image.PreserveAspectFit
                             sourceSize: Qt.size(
                                             clipboardImg.sourceSize.width * 4,
@@ -256,7 +256,7 @@ Item {
                         Image {
                             id: presupuestoImg
                             anchors.fill: parent
-                            source: "qrc:/icons/file-document-multiple.svg"
+                            source: "qrc:/icons/resources/file-document-multiple.svg"
                             fillMode: Image.PreserveAspectFit
                             sourceSize: Qt.size(fileImg.sourceSize.width * 4,
                                                 fileImg.sourceSize.height * 4)

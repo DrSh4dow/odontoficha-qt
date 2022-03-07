@@ -144,25 +144,25 @@ Item {
                 TabButton {
                     text: "Nueva Hoja"
                     width: implicitWidth
-                    icon.source: "qrc:/icons/clipboard-text.svg"
+                    icon.source: "qrc:/icons/resources/clipboard-text.svg"
                     display: TabButton.TextUnderIcon
                 }
                 TabButton {
                     text: "Historia Clinica"
                     width: implicitWidth
-                    icon.source: "qrc:/icons/file-document-multiple.svg"
+                    icon.source: "qrc:/icons/resources/file-document-multiple.svg"
                     display: TabButton.TextUnderIcon
                 }
                 TabButton {
                     text: "Antecedentes"
                     width: implicitWidth
-                    icon.source: "qrc:/icons/clipboard-account.svg"
+                    icon.source: "qrc:/icons/resources/clipboard-account.svg"
                     display: TabButton.TextUnderIcon
                 }
                 TabButton {
                     text: "Documentos"
                     width: implicitWidth
-                    icon.source: "qrc:/icons/file-multiple.svg"
+                    icon.source: "qrc:/icons/resources/file-multiple.svg"
                     display: TabButton.TextUnderIcon
                 }
             }

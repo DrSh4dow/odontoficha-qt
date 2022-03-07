@@ -46,12 +46,17 @@ Item {
                     height: 64
 
                     TextField {
-                        placeholderText: "Buscar por Nombre o RUT"
+                        placeholderText: "Filtrar por Nombre o RUT"
+                        id: filtroText
                         height: 40
                         width: 264
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left
                         anchors.leftMargin: 24
+                        selectByMouse: true
+                        onTextEdited: {
+                            patientProxyModel.customFilter(filtroText.text)
+                        }
                     }
 
                     Button {

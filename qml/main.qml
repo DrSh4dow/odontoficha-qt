@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls.Material
 import QtQuick.Layouts
 
-Window {
+ApplicationWindow {
     id: root
     minimumWidth: 960
     minimumHeight: 720
@@ -10,8 +10,6 @@ Window {
     height: 768
     visible: true
     title: qsTr("Odontoficha")
-
-    property int selectedPatient: 0
 
     Rectangle {
         color: "#FBFCFD"
@@ -36,21 +34,33 @@ Window {
             globalX: root.width
             globalY: root.height
             onPacienteSelected: function handler(pagina, id) {
-                root.selectedPatient = id
-                navigationBar.currentIndex = pagina
-                if (pagina === 6 && id > 0) {
-                    //                    console.log("paciente id: " + id)
+                //                    console.log("paciente id: " + id)
+                if (id < 1)
+                    return
+                switch (pagina) {
+                case 4:
+                    presupuestoLayouot.pacienteId = id
+                    break
+                case 6:
+
+                    fichaClinica.pacienteId = id
                     fichaClinica.getFichas(id)
+                    break
+                default:
+                    console.log("infalid page")
+                    return
                 }
+                navigationBar.currentIndex = pagina
             }
         }
         AgendaLayout {}
         RecetasLayout {}
-        PresupuestoLayout {}
+        PresupuestoLayout {
+            id: presupuestoLayouot
+        }
         ConfiguracionLayout {}
         FichaClinica {
             id: fichaClinica
-            pacienteId: selectedPatient
             globalX: root.width
             globalY: root.height
         }

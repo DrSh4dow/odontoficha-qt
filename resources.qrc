@@ -1,19 +1,20 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>account-multiple.svg</file>
-        <file>calendar-blank.svg</file>
-        <file>clipboard-text.svg</file>
-        <file>cog.svg</file>
-        <file>exit-to-app.svg</file>
-        <file>file-document-multiple.svg</file>
-        <file>view-dashboard.svg</file>
-        <file>clipboard-account.svg</file>
-        <file>file-multiple.svg</file>
-        <file>plus.svg</file>
-        <file>tooth.ico</file>
+        <file>resources/exit-to-app.svg</file>
+        <file>resources/file-document-multiple.svg</file>
+        <file>resources/file-multiple.svg</file>
+        <file>resources/plus.svg</file>
+        <file>resources/tooth.ico</file>
+        <file>resources/view-dashboard.svg</file>
+        <file>resources/cog.svg</file>
+        <file>resources/clipboard-text.svg</file>
+        <file>resources/clipboard-account.svg</file>
+        <file>resources/calendar-blank.svg</file>
+        <file>resources/account-multiple.svg</file>
     </qresource>
     <qresource prefix="/images">
-        <file>exampleavatar.jpeg</file>
+        <file>resources/exampleavatar.jpeg</file>
+        <file>presupuestoheader.png</file>
     </qresource>
     <qresource prefix="/fonts"/>
     <qresource prefix="/">

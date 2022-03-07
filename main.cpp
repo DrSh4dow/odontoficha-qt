@@ -1,16 +1,17 @@
 #include "connection.h"
+#include "customfilterproxymodel.h"
 #include "fichasqlmodel.h"
 #include "patient.h"
 #include "patientsqlmodel.h"
 #include "utility.h"
+#include <QApplication>
 #include <QGuiApplication>
+#include <QIcon>
 #include <QQmlApplicationEngine>
 #include <QtQml>
-#include <QIcon>
-#include <QSortFilterProxyModel>
 
 int main(int argc, char *argv[]) {
-  QGuiApplication app(argc, argv);
+  QApplication app(argc, argv);
 
   /**************************
    *
@@ -18,38 +19,36 @@ int main(int argc, char *argv[]) {
    *
    **************************/
 
-  app.setWindowIcon(QIcon(":/icons/tooth.ico"));
+  app.setWindowIcon(QIcon(":/icons/resources/tooth.ico"));
 
   bool isConnected = createConnection();
   qInfo() << "Connected to DB: " << isConnected;
 
   // Object Instantiation
   PatientSqlModel *patientModelUnfiltered = new PatientSqlModel(&app);
-  QSortFilterProxyModel *proxyPatientModel = new QSortFilterProxyModel(&app);
+  CustomFilterProxyModel *proxyPatientModel = new CustomFilterProxyModel(&app);
   proxyPatientModel->setSourceModel(patientModelUnfiltered);
+  proxyPatientModel->sort(10, Qt::DescendingOrder);
+  proxyPatientModel->setFilterKeyColumn(1);
 
   Utility *utilityObject = new Utility(&app);
 
-
-
-
-  //Qml registration
+  // Qml registration
   qmlRegisterType<Patient>("cl.odontoficha.patient", 1, 0, "Patient");
   qmlRegisterType<FichaSqlModel>("cl.odontoficha.fichasql", 1, 0, "FichaModel");
 
-
-
-
   QQmlApplicationEngine engine;
 
-  //Object Registration
-  engine.rootContext()->setContextProperty("patientProxyModel", proxyPatientModel);
-  engine.rootContext()->setContextProperty("patientSourceModel", patientModelUnfiltered);
+  // Object Registration
+  engine.rootContext()->setContextProperty("patientProxyModel",
+                                           proxyPatientModel);
+  engine.rootContext()->setContextProperty("patientSourceModel",
+                                           patientModelUnfiltered);
   engine.rootContext()->setContextProperty("utilityObject", utilityObject);
 
   // Finish custom logic
 
-  const QUrl url(u"qrc:/odontoficha/main.qml"_qs);
+  const QUrl url(u"qrc:/odontoficha/qml/main.qml"_qs);
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreated, &app,
       [url](QObject *obj, const QUrl &objUrl) {

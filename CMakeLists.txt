@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.2 COMPONENTS Quick Core Sql Qml Gui REQUIRED)
+find_package(Qt6 6.2 COMPONENTS Quick Core Sql Qml Gui PrintSupport Widgets REQUIRED)
 
 qt_add_executable(appodontoficha
     resources.qrc
@@ -17,27 +17,30 @@ qt_add_executable(appodontoficha
     patient.h patient.cpp
     fichasqlmodel.h fichasqlmodel.cpp
     utility.h utility.cpp
+    customfilterproxymodel.h customfilterproxymodel.cpp
 )
 
 qt_add_qml_module(appodontoficha
     URI odontoficha
     VERSION 1.0
     QML_FILES
-        main.qml
-        NavBar.qml
-        DashboardLayout.qml
-        PacientesLayout.qml
-        AgendaLayout.qml
-        RecetasLayout.qml
-        PresupuestoLayout.qml
-        ConfiguracionLayout.qml
-        PacienteRow.qml
-        PacientesHeader.qml
-        FichaClinica.qml
-        FichaLayout.qml
-        AntecedentesLayout.qml
-        DocumentosLayout.qml
-        NuevaFichaLayout.qml
+        qml/main.qml
+        qml/NavBar.qml
+        qml/DashboardLayout.qml
+        qml/PacientesLayout.qml
+        qml/AgendaLayout.qml
+        qml/RecetasLayout.qml
+        qml/PresupuestoLayout.qml
+        qml/ConfiguracionLayout.qml
+        qml/PacienteRow.qml
+        qml/PacientesHeader.qml
+        qml/FichaClinica.qml
+        qml/FichaLayout.qml
+        qml/AntecedentesLayout.qml
+        qml/DocumentosLayout.qml
+        qml/NuevaFichaLayout.qml
+        qml/PdfViewer.qml
+        qml/PresupuestoPrintable.qml
 )
 
 set_target_properties(appodontoficha PROPERTIES
@@ -51,4 +54,4 @@ set_target_properties(appodontoficha PROPERTIES
 target_compile_definitions(appodontoficha
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(appodontoficha
-    PRIVATE Qt6::Quick Qt6::Qml Qt6::Core Qt6::Sql Qt6::Gui)
+    PRIVATE Qt6::Quick Qt6::Qml Qt6::Core Qt6::Sql Qt6::Gui Qt6::PrintSupport Qt6::Widgets)

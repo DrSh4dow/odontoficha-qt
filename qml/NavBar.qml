@@ -73,7 +73,7 @@ Item {
                             anchors.fill: parent
                             fillMode: Image.PreserveAspectCrop
                             horizontalAlignment: Image.AlignLeft
-                            source: "qrc:/images/exampleavatar.jpeg"
+                            source: "qrc:/images/resources/exampleavatar.jpeg"
                             layer.enabled: true
                             layer.effect: OpacityMask {
                                 maskSource: mask
@@ -133,7 +133,7 @@ Item {
                                 Image {
                                     id: dashboardIcon
                                     anchors.fill: parent
-                                    source: "qrc:/icons/view-dashboard.svg"
+                                    source: "qrc:/icons/resources/view-dashboard.svg"
                                 }
                                 ColorOverlay {
                                     anchors.fill: dashboardIcon
@@ -183,7 +183,7 @@ Item {
                                 Image {
                                     id: peopleIcon
                                     anchors.fill: parent
-                                    source: "qrc:/icons/account-multiple.svg"
+                                    source: "qrc:/icons/resources/account-multiple.svg"
                                 }
                                 ColorOverlay {
                                     anchors.fill: peopleIcon
@@ -233,7 +233,7 @@ Item {
                                 Image {
                                     id: agendaIcon
                                     anchors.fill: parent
-                                    source: "qrc:/icons/calendar-blank.svg"
+                                    source: "qrc:/icons/resources/calendar-blank.svg"
                                 }
                                 ColorOverlay {
                                     anchors.fill: agendaIcon
@@ -283,7 +283,7 @@ Item {
                                 Image {
                                     id: recetaIcon
                                     anchors.fill: parent
-                                    source: "qrc:/icons/clipboard-text.svg"
+                                    source: "qrc:/icons/resources/clipboard-text.svg"
                                 }
                                 ColorOverlay {
                                     anchors.fill: recetaIcon
@@ -333,7 +333,7 @@ Item {
                                 Image {
                                     id: presupuestoIcon
                                     anchors.fill: parent
-                                    source: "qrc:/icons/file-document-multiple.svg"
+                                    source: "qrc:/icons/resources/file-document-multiple.svg"
                                 }
                                 ColorOverlay {
                                     anchors.fill: presupuestoIcon
@@ -404,7 +404,7 @@ Item {
                                 Image {
                                     id: cogIcon
                                     anchors.fill: parent
-                                    source: "qrc:/icons/cog.svg"
+                                    source: "qrc:/icons/resources/cog.svg"
                                 }
                                 ColorOverlay {
                                     anchors.fill: cogIcon
@@ -461,7 +461,7 @@ Item {
                     Image {
                         id: exitIcon
                         anchors.fill: parent
-                        source: "qrc:/icons/exit-to-app.svg"
+                        source: "qrc:/icons/resources/exit-to-app.svg"
                     }
                     ColorOverlay {
                         anchors.fill: exitIcon
