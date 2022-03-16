@@ -321,20 +321,29 @@ Item {
                 font.bold: true
 
                 onClicked: {
-                    //                    pdfViewer.show()
-                    utilityObject.printDocument()
-                    //                    presupuestoPrintable.grabToImage(function (result) {
-                    //                        result.saveToFile("something.png")
-                    //                    })
-                }
-            }
+                    let formatedName = patient.name
+                        == "" ? "" : patient.name + " " + patient.last_name
+                    let formatedRut = patient.rut
+                        == "" ? "" : [patient.rut.slice(
+                                          0, -7), '.', patient.rut.slice(
+                                          -7, -4), '.', patient.rut.slice(
+                                          -4, -1), '-', patient.rut.slice(
+                                          -1)].join('')
 
-            PdfViewer {
-                id: pdfViewer
-            }
-            PresupuestoPrintable {
-                id: presupuestoPrintable
-                visible: false
+                    let dataPrestacion = []
+                    let dataPrecio = []
+                    let dataPieza = []
+
+                    for (var i = 0; i < preDataModel.count; i++) {
+                        dataPrestacion.push(preDataModel.get(i).nombre)
+                        dataPrecio.push(preDataModel.get(i).precio)
+                        dataPieza.push(preDataModel.get(i).pieza)
+                    }
+
+                    utilityObject.printDocument(dataPrestacion, dataPieza,
+                                                dataPrecio, formatedName,
+                                                formatedRut)
+                }
             }
         }
     }

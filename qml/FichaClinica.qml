@@ -160,7 +160,7 @@ Item {
                     display: TabButton.TextUnderIcon
                 }
                 TabButton {
-                    text: "Documentos"
+                    text: "Plan de Acción"
                     width: implicitWidth
                     icon.source: "qrc:/icons/resources/file-multiple.svg"
                     display: TabButton.TextUnderIcon

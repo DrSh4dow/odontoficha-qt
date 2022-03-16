@@ -47,7 +47,7 @@ ApplicationWindow {
                     fichaClinica.getFichas(id)
                     break
                 default:
-                    console.log("infalid page")
+                    console.log("invalid page")
                     return
                 }
                 navigationBar.currentIndex = pagina
