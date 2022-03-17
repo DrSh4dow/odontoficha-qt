@@ -342,7 +342,8 @@ Item {
 
                     utilityObject.printDocument(dataPrestacion, dataPieza,
                                                 dataPrecio, formatedName,
-                                                formatedRut)
+                                                formatedRut, "",
+                                                root.pacienteId)
                 }
             }
         }

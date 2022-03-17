@@ -34,7 +34,7 @@ ApplicationWindow {
             globalX: root.width
             globalY: root.height
             onPacienteSelected: function handler(pagina, id) {
-                //                    console.log("paciente id: " + id)
+                //                console.log("paciente id: " + id)
                 if (id < 1)
                     return
                 switch (pagina) {

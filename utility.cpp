@@ -8,7 +8,21 @@ Utility::Utility(QObject *parent) : QObject{parent} {
 
 bool Utility::isOpen() {
   QSqlDatabase db = QSqlDatabase::database();
-  bool result = db.isOpen();
+  bool result = false;
+
+  if (db.isOpen()) {
+    result = true;
+  } else {
+    qInfo() << "[ C++ ] DB is disconnected, attempting to reconect...";
+    if (!db.open()) {
+      qWarning("Unable to open database");
+      qInfo() << db.lastError();
+
+      result = false;
+    } else {
+      result = true;
+    }
+  }
 
   this->setIsDatabaseOpen(result);
 
@@ -18,7 +32,7 @@ bool Utility::isOpen() {
 
 bool Utility::printDocument(QStringList dataPrestacion, QStringList dataPieza,
                             QStringList dataPrecio, QString nombre, QString rut,
-                            QString direccion) {
+                            QString direccion, int patientId) {
   qInfo() << "[ C++ ] printDocument Called";
 
   QPrinter printer;
@@ -207,7 +221,27 @@ bool Utility::printDocument(QStringList dataPrestacion, QStringList dataPieza,
 
     // End the painting
     painter.end();
-    qInfo() << "Painting process end";
+    qInfo() << "[ C++ ] Painting process end";
+
+    //    qInfo() << "PatientID:" << patientId;
+
+    // Se verifica si hay paciente seleccionado
+    if (patientId == 0) {
+
+      qInfo()
+          << "[ C++ ] No hay paciente seleccionado, saltando almacenamiento...";
+      return true;
+    }
+
+    qInfo() << "[ C++ ] Se empieza a guardar el plan de accion";
+    if (savePlanDeAccion(dataPrestacion, dataPieza, dataPrecio, patientId)) {
+      qInfo("[ C++ ]El plan de accion en el paciente se guardo con exito!");
+    } else {
+      qInfo(
+          "[ C++ ] Fracaso el almacenamiento del plan de accion en el paciente "
+          "seleccionado");
+    }
+
     return true;
   }
   qInfo() << " [ C++ ] Printing failed";
@@ -219,6 +253,33 @@ bool Utility::isDatabaseOpen() const { return m_isDatabaseOpen; }
 
 void Utility::setIsDatabaseOpen(bool newIsDatabaseOpen) {
   m_isDatabaseOpen = newIsDatabaseOpen;
+}
+
+bool Utility::savePlanDeAccion(QStringList dataPrestacion,
+                               QStringList dataPieza, QStringList dataPrecio,
+                               int patientId) {
+
+  qInfo() << "[ C++ ] Hello from hell motherfuckers!";
+  if (!isOpen()) {
+    qInfo() << "[ C++ ] Database is not open, operation cancelled";
+    return false;
+  }
+  QSqlQuery queryPlanAccion;
+  queryPlanAccion.prepare(
+      "INSERT INTO plan_accion(patient_id) VALUES(:patient_id)");
+  queryPlanAccion.bindValue(":patient_id", patientId);
+
+  if (!queryPlanAccion.exec()) {
+    qInfo() << "[ ERROR ] La creacion del Plan de accion fallo";
+    qInfo() << queryPlanAccion.lastError();
+    return false;
+  }
+
+  // TO DO - guardar el plan de accion
+  //    QSqlQuery query;
+  //    query.prepare("INSERT INTO servicio()");
+
+  return true;
 }
 
 float Utility::calculateCenter(int total, int size) {

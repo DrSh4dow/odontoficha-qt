@@ -13,6 +13,8 @@
 #include <QPrinter>
 #include <QRectF>
 #include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
 #include <QtQml>
 
 class Utility : public QObject {
@@ -27,13 +29,15 @@ public:
   Q_INVOKABLE bool printDocument(QStringList dataPrestacion,
                                  QStringList dataPieza, QStringList dataPrecio,
                                  QString nombre = "", QString rut = "",
-                                 QString direccion = "");
+                                 QString direccion = "", int patientId = 0);
 
   bool isDatabaseOpen() const;
   void setIsDatabaseOpen(bool newIsDatabaseOpen);
 
 private:
   bool m_isDatabaseOpen;
+  bool savePlanDeAccion(QStringList dataPrestacion, QStringList dataPieza,
+                        QStringList dataPrecio, int patientId);
   float calculateCenter(int total, int size);
 
 signals:
