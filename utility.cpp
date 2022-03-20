@@ -249,6 +249,82 @@ bool Utility::printDocument(QStringList dataPrestacion, QStringList dataPieza,
   return false;
 }
 
+bool Utility::printReceta(QString contenido, QString nombre, QString rut,
+                          QString direccion, QString edad, int patientId) {
+  qInfo() << "[ C++ ] printReceta Called";
+
+  QPrinter printer;
+  QImage recetaImage(":/images/resources/receta.png");
+  QPrintDialog dialog(&printer);
+  QPainter painter;
+  dialog.setWindowTitle(tr("Imprimir Receta"));
+
+  if (dialog.exec() == QDialog::Accepted) {
+
+    QString numeroFolio = "64102";
+    // Se inicia el almacenamiento de receta y obtencion de numero de folio
+    if (patientId == 0) {
+      qInfo()
+          << "[ C++ ] No hay paciente seleccionado, saltando almacenamiento...";
+    } else {
+      int folioNumber = saveReceta(contenido, patientId);
+      if (folioNumber == 0) {
+        qInfo()
+            << "[ C++ ] No se pudo almacenar la receta, cancelando impresion";
+        return false;
+      }
+
+      numeroFolio = QString::number(folioNumber);
+    }
+
+    qInfo() << "Painting process begin";
+
+    int pageWidth = printer.pageRect(QPrinter::DevicePixel).width();
+    int pageHeight = printer.pageRect(QPrinter::DevicePixel).height();
+
+    // Image Container
+    QRectF target(0, 0, pageWidth, pageHeight);
+    QRectF contenidoRectangle(pageWidth * 0.2, pageHeight * 0.45,
+                              pageWidth * 0.65, pageHeight * 0.4);
+
+    qInfo() << "page width: " << pageWidth;
+    qInfo() << "page height: " << pageHeight;
+
+    painter.begin(&printer);
+    // Imagen de receta principal
+    painter.drawImage(target, recetaImage);
+
+    // Configuracion del lapiz
+    painter.setPen(Qt::black);
+    painter.setFont(QFont("Roboto", 12));
+
+    // Escritura de texto dinamico
+    painter.drawText(pageWidth * 0.25, pageHeight * 0.25, nombre);
+    painter.drawText(pageWidth * 0.2, pageHeight * 0.3, rut);
+    painter.drawText(pageWidth * 0.55, pageHeight * 0.3, edad);
+    painter.drawText(contenidoRectangle, Qt::AlignJustify | Qt::TextWordWrap,
+                     contenido);
+
+    QString formatedFolio = "Folio N°" + numeroFolio;
+    painter.drawText(0, pageHeight, formatedFolio);
+
+    // Fecha
+
+    painter.setFont(QFont("Roboto", 14));
+    painter.drawText(pageWidth * 0.16, pageHeight * 0.85,
+                     QDate::currentDate().toString("dd/MM/yyyy"));
+
+    painter.end();
+    qInfo() << "[ C++ ] Painting process end";
+    qInfo() << "[ C++ ] Printing process Succeed!";
+
+    return true;
+  }
+
+  qInfo() << " [ C++ ] Printing failed";
+  return false;
+}
+
 bool Utility::isDatabaseOpen() const { return m_isDatabaseOpen; }
 
 void Utility::setIsDatabaseOpen(bool newIsDatabaseOpen) {
@@ -259,27 +335,53 @@ bool Utility::savePlanDeAccion(QStringList dataPrestacion,
                                QStringList dataPieza, QStringList dataPrecio,
                                int patientId) {
 
-  qInfo() << "[ C++ ] Hello from hell motherfuckers!";
-  if (!isOpen()) {
-    qInfo() << "[ C++ ] Database is not open, operation cancelled";
-    return false;
-  }
-  QSqlQuery queryPlanAccion;
-  queryPlanAccion.prepare(
-      "INSERT INTO plan_accion(patient_id) VALUES(:patient_id)");
-  queryPlanAccion.bindValue(":patient_id", patientId);
+  //  qInfo() << "[ C++ ] Hello from hell motherfuckers!";
+  //  if (!isOpen()) {
+  //    qInfo() << "[ C++ ] Database is not open, operation cancelled";
+  //    return false;
+  //  }
+  //  QSqlQuery queryPlanAccion;
+  //  queryPlanAccion.prepare(
+  //      "INSERT INTO plan_accion(patient_id) VALUES(:patient_id)");
+  //  queryPlanAccion.bindValue(":patient_id", patientId);
 
-  if (!queryPlanAccion.exec()) {
-    qInfo() << "[ ERROR ] La creacion del Plan de accion fallo";
-    qInfo() << queryPlanAccion.lastError();
-    return false;
-  }
+  //  if (!queryPlanAccion.exec()) {
+  //    qInfo() << "[ ERROR ] La creacion del Plan de accion fallo";
+  //    qInfo() << queryPlanAccion.lastError();
+  //    return false;
+  //  }
 
   // TO DO - guardar el plan de accion
   //    QSqlQuery query;
   //    query.prepare("INSERT INTO servicio()");
 
   return true;
+}
+
+int Utility::saveReceta(QString contenido, int patientId, int userId) {
+
+  qInfo() << "[ C++ ] Se inicia el proceso de almacenamiento de receta";
+  if (!isOpen()) {
+    qInfo() << "[ C++ ] Database is not open, operation cancelled";
+    return 0;
+  }
+
+  QSqlQuery query;
+  query.prepare("INSERT INTO receta (patient_id, user_id, contenido) VALUES "
+                "(:patient_id , :user_id , :contenido)");
+  query.bindValue(":patient_id", patientId);
+  query.bindValue(":user_id", userId);
+  query.bindValue(":contenido", contenido);
+
+  if (!query.exec()) {
+    qInfo() << "[ ERROR ] La creacion de la receta fallo";
+    qInfo() << query.lastError();
+    return 0;
+  }
+
+  qInfo() << " [ C++ ] La receta se guardo con exito!";
+  //  qInfo() << " [ C++ ] ultimo id usado: " << query.lastInsertId();
+  return query.lastInsertId().toInt();
 }
 
 float Utility::calculateCenter(int total, int size) {

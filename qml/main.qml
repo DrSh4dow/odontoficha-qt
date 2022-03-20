@@ -38,6 +38,9 @@ ApplicationWindow {
                 if (id < 1)
                     return
                 switch (pagina) {
+                case 3:
+                    recetaLayout.pacienteId = id
+                    break
                 case 4:
                     presupuestoLayouot.pacienteId = id
                     break
@@ -54,7 +57,9 @@ ApplicationWindow {
             }
         }
         AgendaLayout {}
-        RecetasLayout {}
+        RecetasLayout {
+            id: recetaLayout
+        }
         PresupuestoLayout {
             id: presupuestoLayouot
         }

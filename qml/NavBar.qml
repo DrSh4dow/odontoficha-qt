@@ -73,7 +73,7 @@ Item {
                             anchors.fill: parent
                             fillMode: Image.PreserveAspectCrop
                             horizontalAlignment: Image.AlignLeft
-                            source: "qrc:/images/resources/exampleavatar.jpeg"
+                            source: "qrc:/images/resources/belen.png"
                             layer.enabled: true
                             layer.effect: OpacityMask {
                                 maskSource: mask
@@ -83,7 +83,7 @@ Item {
 
                     Label {
                         color: "#111827"
-                        text: "Belen Chacón"
+                        text: "María Belén Chacón"
                         font.bold: true
                         font.pixelSize: 20
                     }

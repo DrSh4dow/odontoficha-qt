@@ -13,8 +13,9 @@
         <file>resources/account-multiple.svg</file>
     </qresource>
     <qresource prefix="/images">
-        <file>resources/exampleavatar.jpeg</file>
         <file>presupuestoheader.png</file>
+        <file>resources/belen.png</file>
+        <file>resources/receta.png</file>
     </qresource>
     <qresource prefix="/fonts"/>
     <qresource prefix="/">
