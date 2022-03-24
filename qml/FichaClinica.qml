@@ -198,7 +198,7 @@ Item {
                     antecedentesText: patient.antecedentes
                     cardWidth: card.width
                 }
-                DocumentosLayout {}
+                PlanAccionLayout {}
             }
         }
     }

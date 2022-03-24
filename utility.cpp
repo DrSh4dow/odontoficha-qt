@@ -223,25 +223,6 @@ bool Utility::printDocument(QStringList dataPrestacion, QStringList dataPieza,
     painter.end();
     qInfo() << "[ C++ ] Painting process end";
 
-    //    qInfo() << "PatientID:" << patientId;
-
-    // Se verifica si hay paciente seleccionado
-    if (patientId == 0) {
-
-      qInfo()
-          << "[ C++ ] No hay paciente seleccionado, saltando almacenamiento...";
-      return true;
-    }
-
-    qInfo() << "[ C++ ] Se empieza a guardar el plan de accion";
-    if (savePlanDeAccion(dataPrestacion, dataPieza, dataPrecio, patientId)) {
-      qInfo("[ C++ ]El plan de accion en el paciente se guardo con exito!");
-    } else {
-      qInfo(
-          "[ C++ ] Fracaso el almacenamiento del plan de accion en el paciente "
-          "seleccionado");
-    }
-
     return true;
   }
   qInfo() << " [ C++ ] Printing failed";
@@ -335,25 +316,50 @@ bool Utility::savePlanDeAccion(QStringList dataPrestacion,
                                QStringList dataPieza, QStringList dataPrecio,
                                int patientId) {
 
-  //  qInfo() << "[ C++ ] Hello from hell motherfuckers!";
-  //  if (!isOpen()) {
-  //    qInfo() << "[ C++ ] Database is not open, operation cancelled";
-  //    return false;
-  //  }
-  //  QSqlQuery queryPlanAccion;
-  //  queryPlanAccion.prepare(
-  //      "INSERT INTO plan_accion(patient_id) VALUES(:patient_id)");
-  //  queryPlanAccion.bindValue(":patient_id", patientId);
+  if (!isOpen()) {
+    qInfo() << "[ C++ ] Database is not open, operation cancelled";
+    return false;
+  }
 
-  //  if (!queryPlanAccion.exec()) {
-  //    qInfo() << "[ ERROR ] La creacion del Plan de accion fallo";
-  //    qInfo() << queryPlanAccion.lastError();
-  //    return false;
-  //  }
+  QSqlQuery queryPlanAccion;
+  queryPlanAccion.prepare(
+      "INSERT INTO plan_accion(patient_id) VALUES(:patient_id)");
+  queryPlanAccion.bindValue(":patient_id", patientId);
 
-  // TO DO - guardar el plan de accion
-  //    QSqlQuery query;
-  //    query.prepare("INSERT INTO servicio()");
+  if (!queryPlanAccion.exec()) {
+    qInfo() << "[ ERROR ] La creacion del Plan de accion fallo";
+    qInfo() << queryPlanAccion.lastError();
+    return false;
+  }
+
+  int lastId = queryPlanAccion.lastInsertId().toInt();
+
+  for (int i = 0; i < dataPrestacion.size(); ++i) {
+    QSqlQuery query;
+    query.prepare("INSERT INTO servicio(plan_id, prestacion, precio, pieza) "
+                  "VALUES(:plan_id , :prestacion , :precio , :pieza)");
+    query.bindValue(":plan_id", lastId);
+    query.bindValue(":prestacion", dataPrestacion.at(i));
+    query.bindValue(":precio", dataPrecio.at(i));
+    query.bindValue(":pieza", dataPieza.at(i));
+    if (!query.exec()) {
+      qInfo() << "[ ERROR ] La creacion de una de las prestaciones fallo";
+      qInfo() << query.lastError();
+      qInfo() << "[ C++ ] Intentando revertir proceso...";
+      query.prepare("DELETE FROM plan_accion WHERE plan_id = :plan_id");
+      query.bindValue(":plan_id", lastId);
+      if (!query.exec()) {
+
+        qInfo() << "[ ERROR ] No se pudo revertir el proceso...";
+        qInfo() << query.lastError();
+        qInfo()
+            << "[ C++ ] Se requiere intervencion manual en la base de datos";
+        return false;
+      }
+      return false;
+    }
+  }
+  qInfo() << "Se guardaron con exito las prestaciones";
 
   return true;
 }

@@ -33,14 +33,15 @@ public:
   Q_INVOKABLE bool printReceta(QString contenido = "", QString nombre = "",
                                QString rut = "", QString direccion = "",
                                QString edad = "", int patientId = 0);
+  Q_INVOKABLE bool savePlanDeAccion(QStringList dataPrestacion,
+                                    QStringList dataPieza,
+                                    QStringList dataPrecio, int patientId);
 
   bool isDatabaseOpen() const;
   void setIsDatabaseOpen(bool newIsDatabaseOpen);
 
 private:
   bool m_isDatabaseOpen;
-  bool savePlanDeAccion(QStringList dataPrestacion, QStringList dataPieza,
-                        QStringList dataPrecio, int patientId);
   int saveReceta(QString contenido, int patientId, int userId = 2);
   float calculateCenter(int total, int size);
 

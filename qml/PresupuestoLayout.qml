@@ -346,6 +346,53 @@ Item {
                                                 root.pacienteId)
                 }
             }
+            Button {
+                id: guardarButton
+                enabled: preDataModel.count > 0 && root.pacienteId !== 0
+                text: "Guardar"
+                anchors.left: parent.left
+                anchors.leftMargin: 190
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 24
+                topPadding: 16
+                bottomPadding: 16
+                width: 142
+                Material.background: "#4ade80"
+                Material.foreground: "#FFFFFF"
+                font.bold: true
+                ToolTip.delay: 100
+
+                onClicked: {
+                    let formatedName = patient.name
+                        == "" ? "" : patient.name + " " + patient.last_name
+                    let formatedRut = patient.rut
+                        == "" ? "" : [patient.rut.slice(
+                                          0, -7), '.', patient.rut.slice(
+                                          -7, -4), '.', patient.rut.slice(
+                                          -4, -1), '-', patient.rut.slice(
+                                          -1)].join('')
+
+                    let dataPrestacion = []
+                    let dataPrecio = []
+                    let dataPieza = []
+
+                    for (var i = 0; i < preDataModel.count; i++) {
+                        dataPrestacion.push(preDataModel.get(i).nombre)
+                        dataPrecio.push(preDataModel.get(i).precio)
+                        dataPieza.push(preDataModel.get(i).pieza)
+                    }
+
+                    let isSaved = utilityObject.savePlanDeAccion(
+                            dataPrestacion, dataPieza, dataPrecio,
+                            root.pacienteId)
+
+                    if (isSaved) {
+                        guardarButton.ToolTip.show("Guardado con exito!", 2000)
+                    } else {
+                        guardarButton.ToolTip.show("ERROR al guardar", 2000)
+                    }
+                }
+            }
         }
     }
 }

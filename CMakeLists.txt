@@ -39,6 +39,7 @@ qt_add_qml_module(appodontoficha
         qml/AntecedentesLayout.qml
         qml/DocumentosLayout.qml
         qml/NuevaFichaLayout.qml
+        qml/PlanAccionLayout.qml
 )
 
 set_target_properties(appodontoficha PROPERTIES

@@ -7,7 +7,7 @@
 static bool createConnection() {
   QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
   db.setUserName("odontouser");
-  db.setHostName("192.168.195.209");
+  db.setHostName("192.168.195.80");
   db.setDatabaseName("odontofichadb");
   db.setPassword("3262daMC");
 
