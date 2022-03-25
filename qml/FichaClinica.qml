@@ -15,6 +15,10 @@ Item {
         fichaLayout.getFichas(id)
     }
 
+    function getPlanes(id) {
+        planLayout.getPlanes(id)
+    }
+
     Patient {
         id: patient
         patient_id: pacienteId
@@ -198,7 +202,11 @@ Item {
                     antecedentesText: patient.antecedentes
                     cardWidth: card.width
                 }
-                PlanAccionLayout {}
+                PlanAccionLayout {
+                    id: planLayout
+                    pacienteId: pacienteId
+                    cardWidth: card.width
+                }
             }
         }
     }

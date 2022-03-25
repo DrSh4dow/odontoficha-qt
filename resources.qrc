@@ -11,6 +11,7 @@
         <file>resources/clipboard-account.svg</file>
         <file>resources/calendar-blank.svg</file>
         <file>resources/account-multiple.svg</file>
+        <file>resources/dots-vertical.svg</file>
     </qresource>
     <qresource prefix="/images">
         <file>presupuestoheader.png</file>

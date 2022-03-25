@@ -48,6 +48,7 @@ ApplicationWindow {
 
                     fichaClinica.pacienteId = id
                     fichaClinica.getFichas(id)
+                    fichaClinica.getPlanes(id)
                     break
                 default:
                     console.log("invalid page")

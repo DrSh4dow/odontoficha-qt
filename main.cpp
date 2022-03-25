@@ -3,6 +3,8 @@
 #include "fichasqlmodel.h"
 #include "patient.h"
 #include "patientsqlmodel.h"
+#include "planaccionsqlmodel.h"
+#include "serviciosqlmodel.h"
 #include "utility.h"
 #include <QApplication>
 #include <QGuiApplication>
@@ -36,6 +38,11 @@ int main(int argc, char *argv[]) {
   // Qml registration
   qmlRegisterType<Patient>("cl.odontoficha.patient", 1, 0, "Patient");
   qmlRegisterType<FichaSqlModel>("cl.odontoficha.fichasql", 1, 0, "FichaModel");
+  qmlRegisterType<PlanAccionSqlModel>("cl.odontoficha.planaccionsql", 1, 0,
+                                      "PlanAccionModel");
+  qmlRegisterType<ServicioSqlModel>("cl.odontoficha.serviciosql", 1, 0,
+                                    "ServicioModel");
+  //  qmlRegisterType<>()
 
   QQmlApplicationEngine engine;
 

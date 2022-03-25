@@ -73,7 +73,7 @@ Item {
 
         ListElement {
             nombre: "PFU"
-            precio: "145.000"
+            precio: "165.000"
         }
 
         ListElement {

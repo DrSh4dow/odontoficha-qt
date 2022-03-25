@@ -18,6 +18,8 @@ qt_add_executable(appodontoficha
     fichasqlmodel.h fichasqlmodel.cpp
     utility.h utility.cpp
     customfilterproxymodel.h customfilterproxymodel.cpp
+    planaccionsqlmodel.h planaccionsqlmodel.cpp
+    serviciosqlmodel.h serviciosqlmodel.cpp
 )
 
 qt_add_qml_module(appodontoficha
