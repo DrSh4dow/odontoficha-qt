@@ -37,6 +37,8 @@ class Patient : public QObject {
   Q_PROPERTY(QString fecha_modificacion READ fecha_modificacion WRITE
                  setFecha_modificacion NOTIFY fecha_modificacionChanged)
 
+  Q_PROPERTY(QString address READ address WRITE setAddress NOTIFY addressChanged)
+
   QML_ELEMENT
 
 public:
@@ -77,15 +79,19 @@ public:
   const QString &fecha_modificacion() const;
   void setFecha_modificacion(const QString &newFecha_modificacion);
 
+  const QString &address() const;
+  void setAddress(const QString &newAddress);
+
   Q_INVOKABLE bool createNewPatient(QString nRut, QString nPassport,
                                     QString nName, QString nLastName,
                                     QString nBirthday, QString nPhone,
-                                    QString nEmail, QString nAntecedentes);
+                                    QString nEmail, QString nAntecedentes, QString nAddress);
 
   Q_INVOKABLE bool updateExistingPatient(QString nRut, QString nPassport,
                                          QString nName, QString nLastName,
                                          QString nBirthday, QString nPhone,
-                                         QString nEmail, QString nAntecedentes);
+                                         QString nEmail, QString nAntecedentes, QString nAddress);
+
 
 private:
   int m_patient_id = 0;
@@ -96,12 +102,14 @@ private:
   QString m_birth_day = "";
   QString m_phone = "";
   QString m_email = "";
+  QString m_address = "";
   QString m_antecedentes = "";
   QString m_fecha_creacion = "";
   QString m_fecha_modificacion = "";
 
   void queryPatient(int newId);
   ;
+
 
 signals:
   void patient_idChanged();
@@ -115,6 +123,7 @@ signals:
   void antecedentesChanged();
   void fecha_creacionChanged();
   void fecha_modificacionChanged();
+  void addressChanged();
 };
 
 #endif // PATIENT_H

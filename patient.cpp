@@ -19,9 +19,10 @@ void Patient::queryPatient(int newId) {
     setBirth_day(query.value(5).toString());
     setPhone(query.value(6).toString());
     setEmail(query.value(7).toString());
-    setAntecedentes(query.value(8).toString());
-    setFecha_creacion(query.value(9).toString());
-    setFecha_modificacion(query.value(10).toString());
+    setAddress(query.value(8).toString());
+    setAntecedentes(query.value(9).toString());
+    setFecha_creacion(query.value(10).toString());
+    setFecha_modificacion(query.value(11).toString());
   }
 }
 
@@ -117,17 +118,32 @@ void Patient::setFecha_modificacion(const QString &newFecha_modificacion) {
   emit fecha_modificacionChanged();
 }
 
+
+const QString &Patient::address() const
+{
+    return m_address;
+}
+
+void Patient::setAddress(const QString &newAddress)
+{
+    if (m_address == newAddress)
+        return;
+    m_address = newAddress;
+    emit addressChanged();
+}
+
+
 bool Patient::createNewPatient(QString nRut, QString nPassport, QString nName,
                                QString nLastName, QString nBirthday,
                                QString nPhone, QString nEmail,
-                               QString nAntecedentes) {
+                               QString nAntecedentes, QString nAddress) {
 
   QSqlQuery query;
 
   query.prepare(
       "INSERT INTO patient(rut, passport, name, last_name, birth_day, phone, "
-      "email, antecedentes) VALUES (:rut, :passport, :name, :last_name, "
-      ":birth_day, :phone, :email, :antecedentes)");
+      "email, address, antecedentes) VALUES (:rut, :passport, :name, :last_name, "
+      ":birth_day, :phone, :email, :address, :antecedentes)");
   query.bindValue(":rut", nRut);
   query.bindValue(":passport", nPassport);
   query.bindValue(":name", nName);
@@ -136,6 +152,7 @@ bool Patient::createNewPatient(QString nRut, QString nPassport, QString nName,
   query.bindValue(":phone", nPhone);
   query.bindValue(":email", nEmail);
   query.bindValue(":antecedentes", nAntecedentes);
+  query.bindValue(":address", nAddress);
 
   if (!query.exec()) {
     qInfo() << "[ ERROR ] La creacion del paciente fallo";
@@ -151,13 +168,13 @@ bool Patient::createNewPatient(QString nRut, QString nPassport, QString nName,
 bool Patient::updateExistingPatient(QString nRut, QString nPassport,
                                     QString nName, QString nLastName,
                                     QString nBirthday, QString nPhone,
-                                    QString nEmail, QString nAntecedentes) {
+                                    QString nEmail, QString nAntecedentes, QString nAddress) {
 
   QSqlQuery query;
   query.prepare(
       "UPDATE patient SET rut = :rut, passport = :passport, name = :name, "
       "last_name = :last_name, birth_day = :birth_day, phone = :phone, email = "
-      ":email, antecedentes = :antecedentes WHERE patient_id = :id");
+      ":email, address = :address, antecedentes = :antecedentes WHERE patient_id = :id");
 
   query.bindValue(":rut", nRut);
   query.bindValue(":passport", nPassport);
@@ -166,6 +183,7 @@ bool Patient::updateExistingPatient(QString nRut, QString nPassport,
   query.bindValue(":birth_day", nBirthday);
   query.bindValue(":phone", nPhone);
   query.bindValue(":email", nEmail);
+  query.bindValue(":address", nAddress);
   query.bindValue(":antecedentes", nAntecedentes);
   query.bindValue(":id", m_patient_id);
 
@@ -184,6 +202,7 @@ bool Patient::updateExistingPatient(QString nRut, QString nPassport,
   setPhone(nPhone);
   setEmail(nEmail);
   setAntecedentes(nAntecedentes);
+  setAddress(nAddress);
 
   return true;
 }

@@ -10,16 +10,16 @@ Item {
     property string modificacion: "12-09-22"
     property string ingreso: "25-07-22"
     property int pacienteId: 0
-    property string formatedDateIngreso: ingreso.split("T")[0].split(
+    property string formatedDateIngreso: ingreso.split(" ")[0].split(
                                              "-")[2] + "/" + ingreso.split(
-                                             "T")[0].split(
+                                             " ")[0].split(
                                              "-")[1] + "/" + ingreso.split(
-                                             "T")[0].split("-")[0]
-    property string formatedDateModificacion: modificacion.split("T")[0].split(
+                                             " ")[0].split("-")[0]
+    property string formatedDateModificacion: modificacion.split(" ")[0].split(
                                                   "-")[2] + "/" + modificacion.split(
-                                                  "T")[0].split(
+                                                  " ")[0].split(
                                                   "-")[1] + "/" + modificacion.split(
-                                                  "T")[0].split("-")[0]
+                                                  " ")[0].split("-")[0]
 
     property string formatedRut: [rut.slice(0, -7), '.', rut.slice(
             -7, -4), '.', rut.slice(-4, -1), '-', rut.slice(-1)].join('')

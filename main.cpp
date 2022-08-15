@@ -22,6 +22,8 @@ int main(int argc, char *argv[]) {
    **************************/
 
   app.setWindowIcon(QIcon(":/icons/resources/tooth.ico"));
+  app.setApplicationName("Odontoficha");
+  app.setOrganizationDomain("odontoficha.cl");
 
   bool isConnected = createConnection();
   qInfo() << "Connected to DB: " << isConnected;

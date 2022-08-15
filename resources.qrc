@@ -17,9 +17,11 @@
         <file>presupuestoheader.png</file>
         <file>resources/belen.png</file>
         <file>resources/receta.png</file>
+        <file>resources/logo.png</file>
     </qresource>
     <qresource prefix="/fonts"/>
     <qresource prefix="/">
         <file>qtquickcontrols2.conf</file>
+        <file>db/odontoficha.db</file>
     </qresource>
 </RCC>

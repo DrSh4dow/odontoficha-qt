@@ -145,6 +145,7 @@ Item {
             let sanitizedFono = fono.text.trim()
             let sanitizedEmail = email.text.trim()
             let sanitizedAntecedentes = antecedentes.text
+            let sanitizedAddress = address.text
 
             console.log("Interfacing with c++...")
 
@@ -155,7 +156,8 @@ Item {
                                                          sanitizedBirthday,
                                                          sanitizedFono,
                                                          sanitizedEmail,
-                                                         sanitizedAntecedentes)
+                                                         sanitizedAntecedentes,
+                                                         sanitizedAddress)
 
             if (isCreated) {
                 console.log("Paciente creado con exito!")
@@ -279,6 +281,20 @@ Item {
                     selectByMouse: true
                     Label {
                         text: "Email"
+                        anchors.topMargin: -12
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        font.pixelSize: 12
+                    }
+                }
+                TextField {
+                    id: address
+                    width: 280
+                    placeholderText: "Ej: calle ejemplar 1234"
+                    onEditingFinished: focus = false
+                    selectByMouse: true
+                    Label {
+                        text: "Dirección"
                         anchors.topMargin: -12
                         anchors.top: parent.top
                         anchors.left: parent.left

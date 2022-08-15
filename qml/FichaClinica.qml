@@ -245,15 +245,12 @@ Item {
             let sanitizedFono = fono.text.trim()
             let sanitizedEmail = email.text.trim()
             let sanitizedAntecedentes = antecedentes.text
+            let sanitizedAddress = address.text
 
-            let isUpdated = patient.updateExistingPatient(sanitizedRut,
-                                                          sanitizedPasaporte,
-                                                          sanitizedNombre,
-                                                          sanitizedApellido,
-                                                          sanitizedBirthday,
-                                                          sanitizedFono,
-                                                          sanitizedEmail,
-                                                          sanitizedAntecedentes)
+            let isUpdated = patient.updateExistingPatient(
+                    sanitizedRut, sanitizedPasaporte, sanitizedNombre,
+                    sanitizedApellido, sanitizedBirthday, sanitizedFono,
+                    sanitizedEmail, sanitizedAntecedentes, sanitizedAddress)
 
             if (isUpdated) {
                 console.log("Paciente modificado con exito!")
@@ -377,6 +374,20 @@ Item {
                     selectByMouse: true
                     Label {
                         text: "Email"
+                        anchors.topMargin: -12
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        font.pixelSize: 12
+                    }
+                }
+                TextField {
+                    id: address
+                    width: 280
+                    placeholderText: "Ej: calle ejemplar 1234"
+                    onEditingFinished: focus = false
+                    selectByMouse: true
+                    Label {
+                        text: "Dirección"
                         anchors.topMargin: -12
                         anchors.top: parent.top
                         anchors.left: parent.left

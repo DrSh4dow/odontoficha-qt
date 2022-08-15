@@ -42,11 +42,11 @@ Item {
                 width: listView.width
 
                 property string baseDate: model.fecha_creacion
-                property string formatedDate: baseDate.split("T")[0].split(
+                property string formatedDate: baseDate.split(" ")[0].split(
                                                   "-")[2] + "/" + baseDate.split(
-                                                  "T")[0].split(
+                                                  " ")[0].split(
                                                   "-")[1] + "/" + baseDate.split(
-                                                  "T")[0].split("-")[0]
+                                                  " ")[0].split("-")[0]
 
                 height: 592
                 Label {
