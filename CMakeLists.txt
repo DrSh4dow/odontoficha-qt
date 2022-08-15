@@ -55,4 +55,4 @@ set_target_properties(appodontoficha PROPERTIES
 target_compile_definitions(appodontoficha
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(appodontoficha
-    PRIVATE Qt6::Quick Qt6::Qml Qt6::Core Qt6::Sql Qt6::Gui Qt6::PrintSupport Qt6::Widgets)
+    PRIVATE Qt6::Quick Qt6::Qml Qt6::Core Qt6::Sql Qt6::Gui Qt6::PrintSupport Qt6::Widgets )

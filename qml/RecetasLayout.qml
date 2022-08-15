@@ -89,14 +89,16 @@ Item {
                                           -4, -1), '-', patient.rut.slice(
                                           -1)].join('')
                     let age = getAge(patient.birth_day)
+                    let direccion = patient.address
+
                     console.log(age)
                     console.log(typeof (age))
 
                     let formatedAge = !age ? "" : age + " años"
 
                     utilityObject.printReceta(textArea.text, formatedName,
-                                              formatedRut, "", formatedAge,
-                                              pacienteId)
+                                              formatedRut, direccion,
+                                              formatedAge, pacienteId)
                 }
                 function getAge(dateString) {
                     var today = new Date()

@@ -138,9 +138,5 @@ Item {
             text: 'Crear Presupuesto'
             onClicked: root.pacienteSelected(4, pacienteId)
         }
-        MenuItem {
-            text: 'Agendar Hora'
-            onClicked: root.pacienteSelected(2, pacienteId)
-        }
     }
 }

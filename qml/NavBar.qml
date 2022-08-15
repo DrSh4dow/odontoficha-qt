@@ -439,52 +439,52 @@ Item {
             anchors.leftMargin: 8
             anchors.rightMargin: 8
             anchors.bottomMargin: 8
-            color: exitMouseArea.containsMouse ? "#FAF5FF" : "#FFFFFF"
+            //            color: exitMouseArea.containsMouse ? "#FAF5FF" : "#FFFFFF"
+            color: "#FFFFFF"
             radius: 4
             height: 40
-            Behavior on color {
-                ColorAnimation {
-                    duration: 50
-                }
-            }
 
+            //            Behavior on color {
+            //                ColorAnimation {
+            //                    duration: 50
+            //                }
+            //            }
             Row {
                 spacing: 24
                 anchors.fill: parent
                 anchors.leftMargin: 8
                 topPadding: 8
 
-                Item {
-                    clip: true
-                    height: 24
-                    width: height
-                    Image {
-                        id: exitIcon
-                        anchors.fill: parent
-                        source: "qrc:/icons/resources/exit-to-app.svg"
-                    }
-                    ColorOverlay {
-                        anchors.fill: exitIcon
-                        source: exitIcon
-                        color: "#666666"
-                    }
-                }
-
+                //                Item {
+                //                    clip: true
+                //                    height: 24
+                //                    width: height
+                //                    Image {
+                //                        id: exitIcon
+                //                        anchors.fill: parent
+                //                        source: "qrc:/icons/resources/exit-to-app.svg"
+                //                    }
+                //                    ColorOverlay {
+                //                        anchors.fill: exitIcon
+                //                        source: exitIcon
+                //                        color: "#666666"
+                //                    }
+                //                }
                 Label {
                     color: "#1F2937"
                     anchors.verticalCenter: parent.verticalCenter
-                    text: "Cerrar Sesión"
+                    text: "Odontoficha"
                     font.pixelSize: 14
                     font.bold: true
                 }
             }
 
-            MouseArea {
-                id: exitMouseArea
-                hoverEnabled: true
-                anchors.fill: parent
-                onClicked: console.log("Sesion cerrada")
-            }
+            //            MouseArea {
+            //                id: exitMouseArea
+            //                hoverEnabled: true
+            //                anchors.fill: parent
+            //                onClicked: console.log("Sesion cerrada")
+            //            }
         }
     }
 }

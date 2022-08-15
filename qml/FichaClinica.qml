@@ -270,6 +270,7 @@ Item {
             fono.text = patient.phone
             email.text = patient.email
             antecedentes.text = patient.antecedentes
+            address.text = patient.address
         }
 
         Column {

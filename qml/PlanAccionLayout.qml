@@ -169,6 +169,32 @@ Item {
                                 }
                             }
                         }
+                        MouseArea {
+                            id: pacienteRowMouseArea
+                            anchors.fill: visibleArea
+                            hoverEnabled: true
+                            acceptedButtons: Qt.LeftButton
+                                             | Qt.RightButton // default is Qt.LeftButton only
+                            onClicked: function handler(mouse) {
+                                if (mouse.button === Qt.RightButton) {
+                                    contextMenu.x = mouse.x
+                                    contextMenu.y = mouse.y
+                                    contextMenu.open()
+                                }
+                            }
+                        }
+
+                        Menu {
+                            id: contextMenu
+                            MenuItem {
+                                text: 'Ver Presupuesto'
+                                onClicked: console.log("ver clicked")
+                            }
+                            MenuItem {
+                                text: 'Imprimir Presupuesto'
+                                onClicked: console.log("imprimir clicked")
+                            }
+                        }
                     }
                     ListView {
                         id: chList

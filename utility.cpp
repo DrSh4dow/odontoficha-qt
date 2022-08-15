@@ -147,7 +147,7 @@ bool Utility::printDocument(QStringList dataPrestacion, QStringList dataPieza,
     QRectF centeredBottomRect(0, pageHeight * 0.9, pageWidth, 80);
 
     painter.drawText(centeredBottomRect.adjusted(0, 16, 0, 0), Qt::AlignHCenter,
-                     "228661760");
+                     "+56 9 5789 8332");
 
     painter.drawText(centeredBottomRect.adjusted(0, 32, 0, 0), Qt::AlignHCenter,
                      "AV. BALMACEDA 4194, RENCA");
@@ -283,6 +283,7 @@ bool Utility::printReceta(QString contenido, QString nombre, QString rut,
     painter.drawText(pageWidth * 0.25, pageHeight * 0.25, nombre);
     painter.drawText(pageWidth * 0.2, pageHeight * 0.3, rut);
     painter.drawText(pageWidth * 0.55, pageHeight * 0.3, edad);
+    painter.drawText(pageWidth * 0.25, pageHeight * 0.35, direccion);
     painter.drawText(contenidoRectangle, Qt::AlignJustify | Qt::TextWordWrap,
                      contenido);
 

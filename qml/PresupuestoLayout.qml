@@ -329,6 +329,7 @@ Item {
                                           -7, -4), '.', patient.rut.slice(
                                           -4, -1), '-', patient.rut.slice(
                                           -1)].join('')
+                    let direccion = patient.address
 
                     let dataPrestacion = []
                     let dataPrecio = []
@@ -342,7 +343,7 @@ Item {
 
                     utilityObject.printDocument(dataPrestacion, dataPieza,
                                                 dataPrecio, formatedName,
-                                                formatedRut, "",
+                                                formatedRut, direccion,
                                                 root.pacienteId)
                 }
             }
