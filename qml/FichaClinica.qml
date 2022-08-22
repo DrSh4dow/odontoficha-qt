@@ -16,6 +16,7 @@ Item {
     }
 
     function getPlanes(id) {
+        planLayout.pacienteId = id
         planLayout.getPlanes(id)
     }
 
@@ -289,9 +290,6 @@ Item {
                     width: 280
                     onEditingFinished: focus = false
                     selectByMouse: true
-                    validator: IntValidator {
-                        bottom: 0
-                    }
                     Label {
                         text: "RUT (sin puntos ni guion)"
                         anchors.topMargin: -12

@@ -30,9 +30,10 @@ Item {
             id: card
             anchors.left: parent.left
             anchors.leftMargin: 40
-            anchors.rightMargin: 40
-            anchors.right: parent.right
+            //            anchors.rightMargin: 40
+            //            anchors.right: parent.right
             height: 560
+            width: parent.width < 880 ? parent.width - 80 : 800
             border.color: "#E5E5E5"
             border.width: 1
             radius: 12
@@ -195,9 +196,6 @@ Item {
                     width: 280
                     onEditingFinished: focus = false
                     selectByMouse: true
-                    validator: IntValidator {
-                        bottom: 0
-                    }
                     Label {
                         text: "RUT (sin puntos ni guion)"
                         anchors.topMargin: -12

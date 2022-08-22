@@ -139,7 +139,7 @@ Item {
                                 Layout.preferredWidth: 64
                                 Layout.fillWidth: true
                                 Label {
-                                    text: "Falso"
+                                    text: model.completado ? "Si" : "No"
                                     font.pixelSize: 12
                                     anchors.centerIn: parent
                                 }
@@ -169,9 +169,11 @@ Item {
                                 }
                             }
                         }
+
                         MouseArea {
                             id: pacienteRowMouseArea
                             anchors.fill: visibleArea
+                            anchors.rightMargin: 40
                             hoverEnabled: true
                             acceptedButtons: Qt.LeftButton
                                              | Qt.RightButton // default is Qt.LeftButton only
@@ -187,12 +189,28 @@ Item {
                         Menu {
                             id: contextMenu
                             MenuItem {
-                                text: 'Ver Presupuesto'
-                                onClicked: console.log("ver clicked")
+                                text: 'Completar'
+                                onClicked: {
+                                    if (utilityObject.toggleCompletar(
+                                                model.plan_id, true)) {
+                                        root.getPlanes(pacienteId)
+                                    }
+                                }
                             }
                             MenuItem {
+                                text: 'Sin Completar'
+                                onClicked: {
+                                    if (utilityObject.toggleCompletar(
+                                                model.plan_id, false)) {
+                                        root.getPlanes(pacienteId)
+                                    }
+                                }
+                            }
+
+                            MenuItem {
                                 text: 'Imprimir Presupuesto'
-                                onClicked: console.log("imprimir clicked")
+                                onClicked: utilityObject.printPlan(
+                                               model.plan_id, pacienteId)
                             }
                         }
                     }

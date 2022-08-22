@@ -36,6 +36,9 @@ public:
   Q_INVOKABLE bool savePlanDeAccion(QStringList dataPrestacion,
                                     QStringList dataPieza,
                                     QStringList dataPrecio, int patientId);
+  Q_INVOKABLE bool printPlan(int planId, int pacienteId);
+
+  Q_INVOKABLE bool toggleCompletar(int planId, bool isComplete);
 
   bool isDatabaseOpen() const;
   void setIsDatabaseOpen(bool newIsDatabaseOpen);

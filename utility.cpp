@@ -365,6 +365,85 @@ bool Utility::savePlanDeAccion(QStringList dataPrestacion,
   return true;
 }
 
+bool Utility::printPlan(int planId, int pacienteId) {
+
+  QSqlQuery query;
+  query.prepare(
+      "SELECT prestacion,pieza,precio FROM servicio WHERE plan_id = :plan_id");
+  query.bindValue(":plan_id", planId);
+  if (!query.exec()) {
+    qInfo() << "[ ERROR ] Fallo obtener los servicios vinculados al plan_id";
+    qInfo() << query.lastError();
+    return false;
+  }
+
+  QStringList dataPrestacion;
+  QStringList dataPieza;
+  QStringList dataPrecio;
+
+  while (query.next()) {
+    dataPrestacion.append(query.value(0).toString());
+    dataPieza.append(query.value(1).toString());
+    dataPrecio.append(query.value(2).toString());
+  }
+
+  //  qInfo() << pacienteId;
+
+  QSqlQuery patientQuery;
+  patientQuery.prepare("SELECT name,last_name,rut,address FROM patient WHERE "
+                       "patient_id = :patient_id");
+  patientQuery.bindValue(":patient_id", pacienteId);
+
+  if (!patientQuery.exec()) {
+    qInfo() << "[ ERROR ] Fallo obtener los datos del paciente";
+    qInfo() << patientQuery.lastError();
+    return false;
+  }
+
+  QString nombre;
+  QString rut;
+  QString direccion;
+
+  while (patientQuery.next()) {
+    nombre.append(patientQuery.value(0).toString());
+    nombre.append(" ");
+    nombre.append(patientQuery.value(1).toString());
+    rut = patientQuery.value(2).toString();
+    direccion = patientQuery.value(3).toString();
+  }
+
+  if (!printDocument(dataPrestacion, dataPieza, dataPrecio, nombre, rut,
+                     direccion, pacienteId)) {
+    qInfo() << "[ ERROR ] Fallo la impresion del plan de accion";
+    return false;
+  }
+
+  return true;
+}
+
+bool Utility::toggleCompletar(int planId, bool isComplete) {
+
+  QSqlQuery query;
+  int completado = 0;
+  if (isComplete) {
+    completado = 1;
+  } else {
+    completado = 0;
+  }
+
+  query.prepare("UPDATE plan_accion SET completado = :completado WHERE plan_id "
+                "= :plan_id");
+  query.bindValue(":plan_id", planId);
+  query.bindValue(":completado", completado);
+  if (!query.exec()){
+      qInfo() << "[ ERROR ] La actualizacion del plan de accion fallo";
+      qInfo() << query.lastError();
+      return false;
+  }
+
+  return true;
+}
+
 int Utility::saveReceta(QString contenido, int patientId, int userId) {
 
   qInfo() << "[ C++ ] Se inicia el proceso de almacenamiento de receta";

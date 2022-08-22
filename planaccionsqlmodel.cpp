@@ -27,7 +27,7 @@ void PlanAccionSqlModel::getPlanAccion(int patient_id) {
   if (patient_id > 0) {
     QString query =
         QStringLiteral(
-            "SELECT plan_id,fecha_creacion FROM plan_accion WHERE patient_id "
+            "SELECT plan_id,fecha_creacion,completado FROM plan_accion WHERE patient_id "
             "= %1 ORDER BY fecha_creacion DESC")
             .arg(patient_id);
     this->setQuery(query);
@@ -38,7 +38,7 @@ void PlanAccionSqlModel::getPlanAccion(int patient_id) {
 }
 
 void PlanAccionSqlModel::generateRoleNames() {
-  const char *COLUMN_NAMES[] = {"plan_id", "fecha_creacion", NULL};
+  const char *COLUMN_NAMES[] = {"plan_id", "fecha_creacion","completado", NULL};
   m_roleNames.clear();
 
   int idx = 0;
