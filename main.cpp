@@ -1,3 +1,4 @@
+#include "configserviciossqlmodel.h"
 #include "connection.h"
 #include "customfilterproxymodel.h"
 #include "fichasqlmodel.h"
@@ -14,7 +15,7 @@
 
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
-//  QWebEngineProfile::defaultProfile()->setPersistentCookiesPolicy(QWebEngineProfile::ForcePersistentCookies);
+  //  QWebEngineProfile::defaultProfile()->setPersistentCookiesPolicy(QWebEngineProfile::ForcePersistentCookies);
 
   /**************************
    *
@@ -41,6 +42,8 @@ int main(int argc, char *argv[]) {
   // Qml registration
   qmlRegisterType<Patient>("cl.odontoficha.patient", 1, 0, "Patient");
   qmlRegisterType<FichaSqlModel>("cl.odontoficha.fichasql", 1, 0, "FichaModel");
+  qmlRegisterType<ConfigServiciosSqlModel>("cl.odontoficha.configserviciossql",
+                                           1, 0, "ConfigServiciosModel");
   qmlRegisterType<PlanAccionSqlModel>("cl.odontoficha.planaccionsql", 1, 0,
                                       "PlanAccionModel");
   qmlRegisterType<ServicioSqlModel>("cl.odontoficha.serviciosql", 1, 0,

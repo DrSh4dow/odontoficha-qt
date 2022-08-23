@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import cl.odontoficha.patient 1.0
+import cl.odontoficha.configserviciossql 1.0
 
 Item {
     id: root
@@ -16,7 +17,7 @@ Item {
     }
 
     ListModel {
-        id: prestacionModel
+        id: prestacionModelOld
         ListElement {
             nombre: "Aplicación flúor barniz"
             precio: "8.500"
@@ -164,8 +165,11 @@ Item {
                         height: 64
                         ComboBox {
                             id: prestacionComboBox
-                            model: prestacionModel
+                            model: ConfigServiciosModel {
+                                id: prestacionModel
+                            }
                             textRole: "nombre"
+                            valueRole: "servicio_config_id"
                             width: 320
                             height: 64
                             Label {
@@ -204,9 +208,11 @@ Item {
                         font.bold: true
                         onClicked: preDataModel.append({
                                                            "nombre": prestacionModel.get(
-                                                                         prestacionComboBox.currentIndex).nombre,
+                                                                         prestacionComboBox.currentValue,
+                                                                         true),
                                                            "precio": prestacionModel.get(
-                                                                         prestacionComboBox.currentIndex).precio,
+                                                                         prestacionComboBox.currentValue,
+                                                                         false),
                                                            "pieza": piezaComboBox.currentValue
                                                        })
                     }

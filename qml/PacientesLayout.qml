@@ -116,7 +116,10 @@ Item {
         width: 640
         height: 640
         title: "Crear Paciente"
-        standardButtons: Dialog.Save | Dialog.Cancel
+        footer: DialogButtonBox {
+            id: buttons
+            standardButtons: Dialog.Save | Dialog.Cancel
+        }
         closePolicy: Popup.NoAutoClose
         modal: true
         focus: true
@@ -178,6 +181,8 @@ Item {
             fono.text = ""
             email.text = ""
             antecedentes.text = ""
+            address.text = ""
+            buttons.standardButton(Dialog.Save).enabled = false
         }
 
         Column {
@@ -221,6 +226,10 @@ Item {
                     id: nombre
                     width: 280
                     onEditingFinished: focus = false
+                    onTextEdited: {
+                        buttons.standardButton(
+                                    Dialog.Save).enabled = nombre.text === "" ? false : true
+                    }
                     selectByMouse: true
                     Label {
                         text: "Nombres*"
