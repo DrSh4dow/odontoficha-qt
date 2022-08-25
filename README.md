@@ -1,6 +1,6 @@
 # Odontoficha
 
-Aplicacion de escritorio basada en el ecosistema QT que permite el manejo clinico de pacientes
+Aplicacion de escritorio multiplataforma basada en el ecosistema QT que permite el manejo clinico de pacientes
 en el area dental.
 
 Incluye:
@@ -10,6 +10,7 @@ Incluye:
 - [WIP] Odontograma
 - [WIP] Agenda
 - [WIP] Base de datos dinamica (bring your favorite!)
+- [WIP] Instalador
 
 ## State
 Actualmente la aplicacion esta en estado alfa, es de esperarse uno que otro bug pero la base
