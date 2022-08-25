@@ -12,6 +12,9 @@ Incluye:
 - [WIP] Base de datos dinamica (bring your favorite!)
 - [WIP] Instalador
 
+![Dashboard de la aplicacion](/resources/dashboard.png?raw=true "Dashboard")
+
 ## State
 Actualmente la aplicacion esta en estado alfa, es de esperarse uno que otro bug pero la base
 se encuentra en un estado funcional y perfectamente compatible con un ambiente de produccion.
+

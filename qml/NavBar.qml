@@ -83,7 +83,7 @@ Item {
 
                     Label {
                         color: "#111827"
-                        text: "María Belén Chacón"
+                        text: "Menu"
                         font.bold: true
                         font.pixelSize: 20
                     }
