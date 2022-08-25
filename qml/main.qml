@@ -10,6 +10,14 @@ ApplicationWindow {
     height: 768
     visible: true
     title: qsTr("Odontoficha")
+    MouseArea {
+        anchors.fill: parent
+
+        onClicked: {
+            //            console.log("base mouse area pressed")
+            focus = true
+        }
+    }
 
     Rectangle {
         color: "#FBFCFD"

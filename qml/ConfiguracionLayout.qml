@@ -1,8 +1,6 @@
 import QtQuick
 import QtQuick.Controls.Material
-import QtQuick.Controls
 import QtQuick.Layouts
-import cl.odontoficha.configserviciossql 1.0
 
 Item {
     id: root
@@ -32,19 +30,82 @@ Item {
                 anchors.leftMargin: 24
                 anchors.rightMargin: 24
                 topPadding: 24
-
+                spacing: 16
                 Label {
                     text: "Prestaciones y Precio: "
                     font.pixelSize: 24
                 }
+
+                Flow {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 8
+
+                    Item {
+                        width: 320
+                        height: 64
+                        TextField {
+                            id: nuevoServicioNombre
+                            placeholderText: "Ej: Blanqueamiento"
+                            width: parent.width
+                            onEditingFinished: focus = false
+                            selectByMouse: true
+                            Label {
+                                text: "Nombre de Servicio"
+                                anchors.topMargin: -12
+                                anchors.top: parent.top
+                                anchors.left: parent.left
+                                font.pixelSize: 12
+                            }
+                        }
+                    }
+                    Item {
+                        width: 240
+                        height: 64
+                        TextField {
+                            id: nuevoServicioPrecio
+                            placeholderText: "Ej: 32.000"
+                            width: parent.width
+                            onEditingFinished: focus = false
+                            selectByMouse: true
+                            Label {
+                                text: "Precio de Servicio"
+                                anchors.topMargin: -12
+                                anchors.top: parent.top
+                                anchors.left: parent.left
+                                font.pixelSize: 12
+                            }
+                        }
+                    }
+                    Item {
+                        width: 240
+                        height: 64
+                        Button {
+                            text: "Crear Servicio"
+                            anchors.left: parent.left
+                            anchors.rightMargin: 24
+                            anchors.verticalCenter: parent.verticalCenter
+                            topPadding: 16
+                            bottomPadding: 16
+                            enabled: nuevoServicioNombre.text === ""
+                                     || nuevoServicioPrecio.text === "" ? false : true
+                            width: 160
+                            Material.background: "#D8B4FE"
+                            Material.foreground: "#FFFFFF"
+                            font.bold: true
+                            onClicked: configServiciosObject.addServicio(
+                                           nuevoServicioNombre.text,
+                                           nuevoServicioPrecio.text)
+                        }
+                    }
+                }
+
                 ListView {
                     id: listView
                     width: 520
                     height: 240
                     clip: true
-                    model: ConfigServiciosModel {
-                        id: configServiciosModel
-                    }
+                    model: configServiciosObject
                     headerPositioning: ListView.OverlayHeader
                     header: Item {
                         width: listView.width
@@ -101,6 +162,33 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.right: parent.right
                             anchors.rightMargin: 80
+                        }
+                        MouseArea {
+                            id: servicioRowMouseArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            acceptedButtons: Qt.LeftButton
+                                             | Qt.RightButton // default is Qt.LeftButton only
+                            onClicked: function handler(mouse) {
+                                if (mouse.button === Qt.RightButton) {
+                                    contextMenu.x = mouse.x
+                                    contextMenu.y = mouse.y
+                                    contextMenu.open()
+                                }
+                            }
+                        }
+
+                        Menu {
+                            id: contextMenu
+                            MenuItem {
+                                text: 'Editar'
+                                onClicked: console.log("Selected Editar")
+                            }
+                            MenuItem {
+                                text: 'Borrar'
+                                onClicked: configServiciosObject.deleteServicio(
+                                               servicio_config_id)
+                            }
                         }
                     }
                 }

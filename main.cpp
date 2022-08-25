@@ -38,12 +38,13 @@ int main(int argc, char *argv[]) {
   proxyPatientModel->setFilterKeyColumn(1);
 
   Utility *utilityObject = new Utility(&app);
+  ConfigServiciosSqlModel *configServiciosObject =
+      new ConfigServiciosSqlModel(&app);
 
   // Qml registration
   qmlRegisterType<Patient>("cl.odontoficha.patient", 1, 0, "Patient");
+
   qmlRegisterType<FichaSqlModel>("cl.odontoficha.fichasql", 1, 0, "FichaModel");
-  qmlRegisterType<ConfigServiciosSqlModel>("cl.odontoficha.configserviciossql",
-                                           1, 0, "ConfigServiciosModel");
   qmlRegisterType<PlanAccionSqlModel>("cl.odontoficha.planaccionsql", 1, 0,
                                       "PlanAccionModel");
   qmlRegisterType<ServicioSqlModel>("cl.odontoficha.serviciosql", 1, 0,
@@ -58,6 +59,8 @@ int main(int argc, char *argv[]) {
   engine.rootContext()->setContextProperty("patientSourceModel",
                                            patientModelUnfiltered);
   engine.rootContext()->setContextProperty("utilityObject", utilityObject);
+  engine.rootContext()->setContextProperty("configServiciosObject",
+                                           configServiciosObject);
 
   // Finish custom logic
 

@@ -22,7 +22,7 @@ QString ConfigServiciosSqlModel::get(int id, bool isName) const {
 
   if (!query.exec()) {
 
-    qInfo() << "[ ERROR ] Fallo obtener los datos del paciente";
+    qInfo() << "[ ERROR ] Fallo obtener los datos del servicio";
     qInfo() << query.lastError();
     return "Error";
   }
@@ -31,6 +31,50 @@ QString ConfigServiciosSqlModel::get(int id, bool isName) const {
   }
 
   return data;
+}
+
+bool ConfigServiciosSqlModel::addServicio(QString nombreServicio,
+                                          QString precioServicio) {
+  if (nombreServicio == "" || precioServicio == "")
+    return 0;
+
+  QSqlQuery query;
+  query.prepare("INSERT INTO servicio_config (nombre,precio) VALUES ( "
+                ":nombre_servicio , :precio_servicio )");
+  query.bindValue(":nombre_servicio", nombreServicio);
+  query.bindValue(":precio_servicio", precioServicio);
+
+  if (!query.exec()) {
+    qInfo() << "[ ERROR ] Fallo el agregar servicio function addServicio";
+    qInfo() << query.lastError();
+    return 0;
+  }
+
+  this->refresh();
+
+  return 1;
+}
+
+bool ConfigServiciosSqlModel::deleteServicio(int id) {
+
+  qInfo() << "[ C++ ] Borrando servicio con id: " << id;
+
+  QSqlQuery query;
+  query.prepare("DELETE FROM servicio_config WHERE servicio_config_id = "
+                ":servicio_config_id");
+  query.bindValue(":servicio_config_id", id);
+
+  if (!query.exec()) {
+    qInfo() << "[ ERROR ] Fallo en la funcion deleteServicio()";
+    qInfo() << query.lastError();
+    return 0;
+  }
+
+  this->refresh();
+
+  qInfo() << "[ C++ ] Servicio borrado con exito!";
+
+  return 1;
 }
 QVariant ConfigServiciosSqlModel::data(const QModelIndex &index,
                                        int role) const {
@@ -64,4 +108,5 @@ void ConfigServiciosSqlModel::generateRoleNames() {
 
 void ConfigServiciosSqlModel::refresh() {
   this->setQuery("SELECT * FROM servicio_config ORDER BY nombre ASC");
+  qInfo() << "[ C++ ] query Refreshed";
 }

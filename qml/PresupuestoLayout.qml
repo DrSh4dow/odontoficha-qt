@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import cl.odontoficha.patient 1.0
-import cl.odontoficha.configserviciossql 1.0
 
 Item {
     id: root
@@ -14,112 +13,6 @@ Item {
 
     ListModel {
         id: preDataModel
-    }
-
-    ListModel {
-        id: prestacionModelOld
-        ListElement {
-            nombre: "Aplicación flúor barniz"
-            precio: "8.500"
-        }
-        ListElement {
-            nombre: "Blanqueamiento"
-            precio: "88.000"
-        }
-        ListElement {
-            nombre: "Carillas de resina"
-            precio: "35.000"
-        }
-        ListElement {
-            nombre: "Carillas de cerámica"
-            precio: "83.000"
-        }
-        ListElement {
-            nombre: "Consulta"
-            precio: "10.000"
-        }
-        ListElement {
-            nombre: "Detartraje"
-            precio: "25.000"
-        }
-
-        ListElement {
-            nombre: "Detartraje más Flúor"
-            precio: "28.000"
-        }
-        ListElement {
-            nombre: "Exodoncia"
-            precio: "35.000"
-        }
-        ListElement {
-            nombre: "Endodoncia anterior"
-            precio: "135.000"
-        }
-        ListElement {
-            nombre: "Endodoncia premolar"
-            precio: "140.000"
-        }
-        ListElement {
-            nombre: "Endodoncia molar"
-            precio: "145.000"
-        }
-        ListElement {
-            nombre: "Incrustación"
-            precio: "93.000"
-        }
-        ListElement {
-            nombre: "Juego de prótesis total acrílica"
-            precio: "225.000"
-        }
-
-        ListElement {
-            nombre: "PFU"
-            precio: "165.000"
-        }
-
-        ListElement {
-            nombre: "Prótesis total acrílica"
-            precio: "120.000"
-        }
-        ListElement {
-            nombre: "Prótesis parcial metálica"
-            precio: "155.000"
-        }
-        ListElement {
-            nombre: "Plano de relajación"
-            precio: "90.000"
-        }
-
-        ListElement {
-            nombre: "Restauración simple"
-            precio: "30.000"
-        }
-        ListElement {
-            nombre: "Restauración compleja"
-            precio: "35.000"
-        }
-
-        ListElement {
-            nombre: "Reparación prótesis removible lab."
-            precio: "55.000"
-        }
-        ListElement {
-            nombre: "Reparación prótesis removible"
-            precio: "30.000"
-        }
-        ListElement {
-            nombre: "Sellante"
-            precio: "13.000"
-        }
-        ListElement {
-            nombre: "Sellantes primeros molares"
-            precio: "37.000"
-        }
-
-        ListElement {
-            nombre: "Trepanación"
-            precio: "30.000"
-        }
     }
 
     Column {
@@ -165,9 +58,7 @@ Item {
                         height: 64
                         ComboBox {
                             id: prestacionComboBox
-                            model: ConfigServiciosModel {
-                                id: prestacionModel
-                            }
+                            model: configServiciosObject
                             textRole: "nombre"
                             valueRole: "servicio_config_id"
                             width: 320
@@ -207,10 +98,10 @@ Item {
                         Material.foreground: "#FFFFFF"
                         font.bold: true
                         onClicked: preDataModel.append({
-                                                           "nombre": prestacionModel.get(
+                                                           "nombre": configServiciosObject.get(
                                                                          prestacionComboBox.currentValue,
                                                                          true),
-                                                           "precio": prestacionModel.get(
+                                                           "precio": configServiciosObject.get(
                                                                          prestacionComboBox.currentValue,
                                                                          false),
                                                            "pieza": piezaComboBox.currentValue
