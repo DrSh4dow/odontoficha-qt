@@ -4,13 +4,13 @@ Aplicacion de escritorio multiplataforma basada en el ecosistema QT que permite 
 en el area dental.
 
 Incluye:
-- Manejo de Ficha Clinica
-- Presupuestos
-- Generacion de Recetas
-- [WIP] Odontograma
-- [WIP] Agenda
-- [WIP] Base de datos dinamica (bring your favorite!)
-- [WIP] Instalador
+- [x] Manejo de Ficha Clinica
+- [x] Presupuestos
+- [x] Generacion de Recetas
+- [ ] Odontograma (WIP)
+- [ ] Agenda
+- [ ] Base de datos dinamica (bring your favorite!)
+- [ ] Instalador
 
 ![Dashboard de la aplicacion](/resources/dashboard.png?raw=true "Dashboard")
 
